@@ -8,6 +8,7 @@ use App\Http\Controllers\GruposController;
 use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\PreinscripcionController;
 use App\Http\Controllers\PadresController;
+use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/home/agregar', [App\Http\Controllers\HomeController::class, 'store']);
 
+
+//// CRUD DE USUARIOS////
+Route::get('/Indexus',[UsuariosController::class,'index'])->name('usuario.index')->middleware('auth');
 
 
 //// CRUD DE CICLO ESCOLAR////
@@ -83,6 +87,7 @@ Route::put('/Editargrupo.{grupo}',[GruposController::class,'update'])->name('gru
 
 Route::delete('/Indexgrupo/{grupo}',[GruposController::class,'destroy'])->name('grupo.destroy')->middleware('auth');
 
+
 ////CRUD DE PREINSCRIPCIÓN////
 
 Route::get('/Agregarpre',[PreinscripcionController::class,'create'])->name('preinscripcion.create')->middleware('auth');
@@ -101,9 +106,13 @@ Route::get('Perfilpre/pdf.{id}', [PreinscripcionController::class, 'pdf'])->name
 
 
 ////CRUD DE PADRES////
+Route::get('/Indexpadre',[PadresController::class,'index'])->name('padre.index')->middleware('auth');
+
 Route::get('/Agregarpadre',[PadresController::class,'create'])->name('padre.create')->middleware('auth');
 
 Route::post('/Agregarpre.padres',[PadresController::class,'store'])->name('padre.store')->middleware('auth');
+
+Route::get('/Perfilpadre.{id}',[PadresController::class,'show'])->name('padre.show')->middleware('auth');
 
 
 

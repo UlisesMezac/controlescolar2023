@@ -81,8 +81,17 @@ Inscripción | Sistema escolar
                     </table>
                 </div>
                 <div class="row">
-                    <div class="container">
-                  
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                      Mostrando  {{$alumno->count()}} elementos de  {{$alumno->currentPage()}} entradas.
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <ul class="pagination">
+                            {{$alumno->links()}}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

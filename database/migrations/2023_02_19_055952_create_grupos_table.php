@@ -15,9 +15,10 @@ class CreateGruposTable extends Migration
     {
         Schema::create('grupos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',5)->unique();
+            $table->string('nombre',5);
             $table->string('status',10);
             $table->string('capacidad',2);
+            
             $table->foreignId('cicloescolar_id')
                   ->nullable()
                   ->constrained('cicloescolar')

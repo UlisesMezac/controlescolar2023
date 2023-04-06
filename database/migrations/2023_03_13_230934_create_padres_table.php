@@ -16,9 +16,9 @@ class CreatePadresTable extends Migration
         Schema::create('padres', function (Blueprint $table) {
             $table->id();
             //////DOCUMENTACIÓN PAPÁ/////////
-            $table->string('nombresP',30)->nullable();
-            $table->string('apellido1P',20)->nullable();
-            $table->string('apellido2P',20)->nullable();
+            $table->string('nombresP',30);
+            $table->string('apellido1P',20);
+            $table->string('apellido2P',20);
             $table->string('edadP',2)->nullable();
             $table->date('fechaNacP')->nullable();
             $table->string('curpP',18)->nullable();
@@ -28,9 +28,9 @@ class CreatePadresTable extends Migration
             $table->string('noHijosP',2)->nullable();
 
             //////DOCUMENTACIÓN MAMÁ/////////
-            $table->string('nombresM',30)->nullable();
-            $table->string('apellido1M',20)->nullable();
-            $table->string('apellido2M',20)->nullable();
+            $table->string('nombresM',30);
+            $table->string('apellido1M',20);
+            $table->string('apellido2M',20);
             $table->string('edadM',2)->nullable();
             $table->date('fechaNacM')->nullable();
             $table->string('curpM',18)->nullable();
@@ -40,9 +40,9 @@ class CreatePadresTable extends Migration
             $table->string('noHijosM',2)->nullable();
 
             //////DOCUMENTACIÓN TUTOR/////////
-            $table->string('nombresT',30)->nullable();
-            $table->string('apellido1T',20)->nullable();
-            $table->string('apellido2T',20)->nullable();
+            $table->string('nombresT',30);
+            $table->string('apellido1T',20);
+            $table->string('apellido2T',20);
             $table->string('edadT',2)->nullable();
             $table->date('fechaNacT')->nullable();
             $table->string('curpT',18)->nullable();

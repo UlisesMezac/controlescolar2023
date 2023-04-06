@@ -27,7 +27,7 @@ Inscripción | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-10 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#E30707">
+                <div class="card-header py-3" style="background-color:#E30707">
                     <h6 class="m-0 font-weight-bold text-light">Preinscripción</h6>
                 </div>
                 <div class="card-body">
@@ -335,7 +335,7 @@ Inscripción | Sistema escolar
                                 <div class="bs-stepper-header" role="tablist">
                                     <div  data-target="">
                                         <div  class="step-trigger" >
-                                            <span class="bs-stepper-circle" style=" background-color:#E30707">1</span>
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">2</span>
                                             <span class="bs-stepper-label">DOMICILIO</span>
                                     </div>
                                     </div>

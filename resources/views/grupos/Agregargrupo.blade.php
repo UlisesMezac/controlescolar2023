@@ -26,8 +26,8 @@ Grados y grupos | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-7 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#ffff">
-                    <h6 class="m-0 font-weight-bold text-danger">Registrar nuevo grupo</h6>
+                <div class="card-header py-3" style="background-color:#E30707">
+                    <h6 class="m-0 font-weight-bold text-light">Registrar nuevo grupo</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
@@ -39,6 +39,7 @@ Grados y grupos | Sistema escolar
                                         <label for="exampleInputEmail1" class="form-label">Grupo:</label>
                                         <input type="text" class="form-control form-control-user @error('nombre') is-invalid @enderror"
                                         id="exampleInputEmail" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus
+                                        placeholder="Ej: 1-A"
                                         style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();">
 
                                                 @error('nombre')
@@ -51,7 +52,6 @@ Grados y grupos | Sistema escolar
                                     <div class="form-group col-md-6">
                                         <label for="inputState">Estado:</label>
                                         <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                            <option selected>{{old('status')}}</option>
                                             <option value="1">Activo</option>
                                             <option value="0">Inactivo</option>
                                         </select>
@@ -69,7 +69,6 @@ Grados y grupos | Sistema escolar
                                     <div class="form-group col-md-6">
                                         <label for="cicloescolar_id">Ciclo escolar:</label>
                                         <select name="cicloescolar_id" class="form-control">
-                                            <option selected>---</option>
                                             @forelse ($ciclo as $cicloItem)
                                                 @if ($cicloItem->status == 1)
                                                     <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>

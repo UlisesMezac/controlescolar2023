@@ -41,31 +41,31 @@ Maestros | Sistema escolar
                 </form>
                 <div class="table-responsive my-3">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Matricula</th>
-                                        <th>Nombre(s)</th>
-                                        <th>Primer apellido</th>
-                                        <th>Segundo apellido</th>
-                                        <th>Estado</th>
-                                        <th style="width: 250px">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($maestro as $maestroItem)
-                                <tr>
-                                    <td>{{$maestroItem->matricula}}</td>
-                                    <td>{{$maestroItem->nombres}}</td>
-                                    <td>{{$maestroItem->apellidoP}} </td>
-                                    <td> {{$maestroItem->apellidoM}}</td>
-                                    <td align="center">
+                        <thead>
+                            <tr>
+                                <th>Matricula</th>
+                                <th>Nombre(s)</th>
+                                <th>Primer apellido</th>
+                                <th>Segundo apellido</th>
+                                <th>Estado</th>
+                                <th style="width: 250px">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($maestro as $maestroItem)
+                            <tr>
+                                <td>{{$maestroItem->matricula}}</td>
+                                <td>{{$maestroItem->nombres}}</td>
+                                <td>{{$maestroItem->apellidoP}} </td>
+                                <td> {{$maestroItem->apellidoM}}</td>
+                                <td align="center">
                                         @if ($maestroItem->status == 1)
                                             <h6 class="m-0 font-weight-bold text-success"><i class="fas fa-circle"></i> Activo</h6>
                                             @else
                                             <h6 class="m-0 font-weight-bold text-danger"><i class="fas fa-times"></i> Inactivo</h6>
                                         @endif
-                                    </td>
-                                    <td>
+                                </td>
+                                <td>
                                         <form action="{{route('maestro.destroy',$maestroItem)}}" class="d-inline formulario-eliminar" method="POST">
                                                         @csrf
                                                         @method('delete')
@@ -78,18 +78,26 @@ Maestros | Sistema escolar
                                         <a href="{{ route('maestro.show', ['id' => $maestroItem->id]) }}">
                                             <button class="btn btn-outline-primary float-right px-3"><i class="fas fa-users-cog" aria-hidden="true"></i></button>
                                         </a>
-                                    </td>
-                                </tr>
-                            
-                                        @endforeach
-                                </tbody>
-                            </table>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <div class="row">
-                <div class="container">
-                 {{$maestro->links()}}
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                      Mostrando  {{$maestro->count()}} elementos de  {{$maestro->currentPage()}} entradas.
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <ul class="pagination">
+                            {{$maestro->links()}}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

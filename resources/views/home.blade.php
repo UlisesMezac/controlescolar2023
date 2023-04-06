@@ -52,7 +52,7 @@
               <div class="icon">
                 <i class="fas fa-users"></i>
               </div>
-              <a href="{{route ('padre.create')}}" class="small-box-footer" style=" background-color:#E30707">
+              <a href="{{route ('padre.index')}}" class="small-box-footer" style=" background-color:#E30707">
                 Consultar <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>

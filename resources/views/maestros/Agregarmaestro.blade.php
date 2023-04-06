@@ -23,8 +23,8 @@ Maestros | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-8 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#ffff">
-                    <h6 class="m-0 font-weight-bold text-danger">Registrar nuevo maestro</h6>
+                <div class="card-header py-3" style="background-color:#E30707">
+                    <h6 class="m-0 font-weight-bold text-light">Registrar nuevo maestro</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">

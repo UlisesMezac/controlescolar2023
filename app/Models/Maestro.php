@@ -22,7 +22,7 @@ class Maestro extends Model
     }*/
 
 
-    //relación de uno a uno
+    //relación de uno a muchos
     public function grupos(){
         return $this->hasMany('App\Models\Grupo');
     }

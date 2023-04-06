@@ -19,9 +19,9 @@ class CreateAlumnosTable extends Migration
             //////INFORMACIÓN DEL ASPIRANTE/////////
             $table->string('folio',)->nullable();
             $table->string('matricula', 10)->unique()->nullable();
-            $table->string('nombres',30)->nullable();
-            $table->string('apellidoP',20)->nullable();
-            $table->string('apellidoM',20)->nullable();
+            $table->string('nombres',30);
+            $table->string('apellidoP',20);
+            $table->string('apellidoM',20);
             $table->string('foto', 255)->nullable();
             $table->char('sexo',1)->comment('F = Femenino, M = Masculino')->nullable();
             $table->date('fechaNac')->nullable();

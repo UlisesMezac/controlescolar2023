@@ -22,5 +22,5 @@ class Grupo extends Model
 
    public function maestro(){
     return $this->belongsTo(Maestro::class, 'maestro_id');
-}
+     }
 }

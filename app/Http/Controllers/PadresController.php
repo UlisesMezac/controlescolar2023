@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Padre;
-
+use App\Models\Alumno;
 
 class PadresController extends Controller
 {
@@ -15,7 +15,9 @@ class PadresController extends Controller
      */
     public function index()
     {
-        return view('padres.Indexpa', compact('padre'));
+       
+        $padre = Padre::all();
+        return view('padres.Indexpadre',['padre' => $padre]);
     }
 
     /**
@@ -194,7 +196,10 @@ class PadresController extends Controller
      */
     public function show($id)
     {
-        //
+        $alumno = Alumno::all();
+        $padre = Padre::find($id);
+        return view('padres.Perfilpadre', ['padre'=>$padre,'alumno'=>$alumno]);
+
     }
 
     /**

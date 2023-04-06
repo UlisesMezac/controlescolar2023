@@ -27,17 +27,14 @@
             <div class="card card-danger card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                      @if ($maestro->status == 1)
-                          <h6 class="m-0 font-weight-bold text-success text-center"><i class="fas fa-circle"></i> Activo</h6>
-                        @else
-                          <h6 class="m-0 font-weight-bold text-danger text-center"><i class="fas fa-times"></i> Inactivo</h6>
-                      @endif
-                      <br>
-                <img class="profile-user-img img-fluid img-circle" 
-                src="{{ asset('foto').'/'.$maestro->foto}}" alt="User profile picture"  style="height: 150px; width: 150px">
-                  <!--img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
-                       alt="User profile picture"-->
+                  @if ($maestro->status == 1)
+                    <h6 class="m-0 font-weight-bold text-success text-center"><i class="fas fa-circle"></i> Activo</h6>
+                  @else
+                    <h6 class="m-0 font-weight-bold text-danger text-center"><i class="fas fa-times"></i> Inactivo</h6>
+                  @endif
+                  <br>
+                  <img class="profile-user-img img-fluid img-circle" 
+                  src="{{ asset('foto').'/'.$maestro->foto}}" alt="User profile picture"  style="height: 150px; width: 150px">
                 </div>
                 <br>
                 <h3 class="profile-username text-center">{{$maestro->nombres}} 
@@ -62,24 +59,21 @@
                     <b><i class="fas fa-envelope"></i>  Correo electrónic</b> <a class="float-right">{{$maestro->correo}}</a>
                   </li>
                 </ul>
-                  <div class="form-row justify-content-center">
+                <div class="form-row justify-content-center">
                     <div class="form-group col-md-">
                       <a href="{{route('maestro.edit',$maestro)}}">
                         <button type="button" class="btn btn-outline-warning">Editar información</button>
                       </a> 
-                  </div>
-                  <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-4">
                     <a href="">
                       <button type="button" class="btn btn-outline-info"> <i class="fas fa-file-alt"></i> PDF</button>
                     </a>
-                  </div>
+                    </div>
                 </div>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-            <!-- About Me Box -->
+            
             <div class="card card">
               <div class="card-header text-danger">
                 <h3 class="card-title">Más sobre mi </h3>
@@ -138,6 +132,7 @@
               </div>
             </div>
           </div>
+          
         </div>
   </div>
 </section>

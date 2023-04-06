@@ -32,11 +32,20 @@ Padres de familia | Sistema escolar
                     <div class="container  border mt-2">
                         <form class="mt-4" method="POST" action="{{route('padre.store')}}" enctype="multipart/form-data">
                             @csrf
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">1</span>
+                                            <span class="bs-stepper-label">DATOS DEL PADRE</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
                             <div class="form-row">
-
-                            <H4>Información del papá</H4>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1" class="form-label">Nombres:</label>
+                                    <label for="exampleInputEmail1" class="form-label">Nombre(s):</label>
                                     <input type="text" class="form-control @error('nombresP') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="nombresP"  aria-describedby="emailHelp" value="{{ old('nombresP') }}">
                                     @error('nombresP')
@@ -46,7 +55,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Primer apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Primer apellido:</label>
                                     <input type="text" class="form-control @error('apellido1P') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido1P"  aria-describedby="emailHelp" value="{{ old('apellido1P') }}"> 
                                     @error('apellido1P')
@@ -56,7 +65,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido:</label>
                                     <input type="text" class="form-control @error('apellido2P') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido2P"  aria-describedby="emailHelp" value="{{ old('apellido2P') }}">
                                     @error('apellido2P')
@@ -67,103 +76,109 @@ Padres de familia | Sistema escolar
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Edad</label>
                                     <input type="number" class="form-control @error('edadP') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="edadP"  aria-describedby="emailHelp" value="{{old('edadP')}}">
                                     @error('edadP')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror    
                                 </div>
-
-
-                            <div class="mb-4">
+                                <div class="form-group col-md-4">
                                     <label for="start">Fecha de nacimiento:</label>
                                     <input type="date" id="fechaNacP" name="fechaNacP" class="form-control @error('fechaNacP') is-invalid @enderror"
-                                    value="">
+                                    value="{{ old('fechaNacP') }}">
                                     @error('fechaNacP')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                            </div>
-
-                                        <div class="mb-4">
-                                        <label for="exampleInputEmail1" class="form-label">CURP:</label>
-                                            <input type="text" class="form-control form-control-user @error('curpP') is-invalid @enderror" 
-                                            style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                            id="" name="curpP"  value="{{old('curpP')}}">
-                                                @error('curpP')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror             
-                                        </div>
-
-                            <div class="form-group">
-                                <label for="viveP">
-                                    Vive
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveP') is-invalid @enderror" 
-                                    name="viveP" id="vivePs" value="Si {{ old('viveP') == 'Si' ? 'checked' : ''}}">
-                                    <label for="vivePs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveP') is-invalid @enderror"
-                                    name="viveP" id="vivePn" value="No {{ old('viveP') == 'No' ? 'checked' : ''}}">
-                                    <label for="vivePn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('viveP')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group">
-                                <label for="leeYescribeP">
-                                    Lee y escribe
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeP') is-invalid @enderror" 
-                                    name="leeYescribeP" id="leeYescribePs" value="Si {{ old('leeYescribeP') == 'Si' ? 'checked' : ''}}">
-                                    <label for="leeYescribePs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeP') is-invalid @enderror"
-                                    name="leeYescribeP" id="leeYescribePn" value="No {{ old('leeYescribeP') == 'No' ? 'checked' : ''}}">
-                                    <label for="leeYescribePn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('leeYescribeP')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                    <label for="exampleInputEmail1" class="form-label">Escolaridad</label>
-                                    <input type="text" class="form-control @error('escolaridadP') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="escolaridadP"  aria-describedby="emailHelp" value="{{old('escolaridadP')}}">
-                                    @error('escolaridadP')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        </span>
+                                    @enderror 
                                 </div>
 
                                 <div class="form-group col-md-5">
+                                    <label for="exampleInputEmail1" class="form-label">CURP:</label>
+                                    <input type="text" class="form-control form-control-user @error('curpP') is-invalid @enderror" 
+                                    style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    id="" name="curpP"  value="{{old('curpP')}}">
+                                    @error('curpP')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror             
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="viveP">
+                                        ¿Vive?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveP') is-invalid @enderror" 
+                                        name="viveP" id="vivePs" value="Si {{ old('viveP') == 'Si' ? 'checked' : ''}}">
+                                        <label for="vivePs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveP') is-invalid @enderror"
+                                        name="viveP" id="vivePn" value="No {{ old('viveP') == 'No' ? 'checked' : ''}}">
+                                        <label for="vivePn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('viveP')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="leeYescribeP">
+                                        ¿Lee y escribe?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeP') is-invalid @enderror" 
+                                        name="leeYescribeP" id="leeYescribePs" value="Si {{ old('leeYescribeP') == 'Si' ? 'checked' : ''}}">
+                                        <label for="leeYescribePs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeP') is-invalid @enderror"
+                                        name="leeYescribeP" id="leeYescribePn" value="No {{ old('leeYescribeP') == 'No' ? 'checked' : ''}}">
+                                        <label for="leeYescribePn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('leeYescribeP')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="escolaridadP">Escolaridad:</label>
+                                    <select name="escolaridadP" class="form-control @error('escolaridadP') is-invalid @enderror">
+                                        <option selected>-----</option>
+                                            <option>Primaria</option>    
+                                            <option>Secundaria</option>
+                                            <option>Preparatoria</option>
+                                            <option>Licenciatura</option>
+                                    </select>
+                                        @error('escolaridadP')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                    
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">No de hijos</label>
                                     <input type="number" class="form-control @error('noHijosP') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="noHijosP"  aria-describedby="emailHelp" value="{{old('noHijosP')}}">
@@ -173,11 +188,22 @@ Padres de familia | Sistema escolar
                                                     </span>
                                                 @enderror    
                                 </div>
-                            <!----INFORMACIÓN DE MAMÁ----->
-                            <H4>Información de la mamá</H4>
+                            </div>
+
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">2</span>
+                                            <span class="bs-stepper-label">DATOS DE LA MADRE</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1" class="form-label">Nombres:</label>
+                                    <label for="exampleInputEmail1" class="form-label">Nombre(s):</label>
                                     <input type="text" class="form-control @error('nombresM') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="nombresM"  aria-describedby="emailHelp" value="{{ old('nombresM') }}">
                                     @error('nombresM')
@@ -187,7 +213,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Primer apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Primer apellido:</label>
                                     <input type="text" class="form-control @error('apellido1M') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido1M"  aria-describedby="emailHelp" value="{{ old('apellido1M') }}"> 
                                     @error('apellido1M')
@@ -197,7 +223,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido:</label>
                                     <input type="text" class="form-control @error('apellido2M') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido2M"  aria-describedby="emailHelp" value="{{ old('apellido2M') }}">
                                     @error('apellido2M')
@@ -208,119 +234,135 @@ Padres de familia | Sistema escolar
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Edad</label>
                                     <input type="number" class="form-control @error('edadM') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="edadM"  aria-describedby="emailHelp" value="{{old('edadM')}}">
                                     @error('edadM')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror    
                                 </div>
-
-
-                            <div class="mb-4">
+                                <div class="form-group col-md-4">
                                     <label for="start">Fecha de nacimiento:</label>
                                     <input type="date" id="fechaNacM" name="fechaNacM" class="form-control @error('fechaNacM') is-invalid @enderror"
-                                    value="">
+                                    value="{{ old('fechaNacM') }}">
                                     @error('fechaNacM')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                            </div>
-
-                                        <div class="mb-4">
-                                        <label for="exampleInputEmail1" class="form-label">CURP:</label>
-                                            <input type="text" class="form-control form-control-user @error('curpM') is-invalid @enderror" 
-                                            style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                            id="" name="curpM"  value="{{old('curpM')}}">
-                                                @error('curpM')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror             
-                                        </div>
-
-                            <div class="form-group">
-                                <label for="viveM">
-                                    Vive
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveM') is-invalid @enderror" 
-                                    name="viveM" id="viveMs" value="Si {{ old('viveM') == 'Si' ? 'checked' : ''}}">
-                                    <label for="viveMs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveM') is-invalid @enderror"
-                                    name="viveM" id="viveMn" value="No {{ old('viveM') == 'No' ? 'checked' : ''}}">
-                                    <label for="viveMn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('viveM')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group">
-                                <label for="leeYescribeM">
-                                    Lee y escribe
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeM') is-invalid @enderror" 
-                                    name="leeYescribeM" id="leeYescribeMs" value="Si {{ old('leeYescribeM') == 'Si' ? 'checked' : ''}}">
-                                    <label for="leeYescribeMs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeM') is-invalid @enderror"
-                                    name="leeYescribeM" id="leeYescribeMn" value="No {{ old('leeYescribeM') == 'No' ? 'checked' : ''}}">
-                                    <label for="leeYescribeMn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('leeYescribeM')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                    <label for="exampleInputEmail1" class="form-label">Escolaridad</label>
-                                    <input type="text" class="form-control @error('escolaridadM') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="escolaridadM"  aria-describedby="emailHelp" value="{{old('escolaridadM')}}">
-                                    @error('escolaridadM')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        </span>
+                                    @enderror 
                                 </div>
 
                                 <div class="form-group col-md-5">
+                                    <label for="exampleInputEmail1" class="form-label">CURP:</label>
+                                    <input type="text" class="form-control form-control-user @error('curpM') is-invalid @enderror" 
+                                    style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    id="" name="curpM"  value="{{old('curpM')}}">
+                                    @error('curpM')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror             
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="viveM">
+                                        ¿Vive?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveM') is-invalid @enderror" 
+                                        name="viveM" id="viveMs" value="Si {{ old('viveM') == 'Si' ? 'checked' : ''}}">
+                                        <label for="viveMs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveM') is-invalid @enderror"
+                                        name="viveM" id="viveMn" value="No {{ old('viveM') == 'No' ? 'checked' : ''}}">
+                                        <label for="viveMn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('viveM')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="leeYescribeM">
+                                        ¿Lee y escribe?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeM') is-invalid @enderror" 
+                                        name="leeYescribeM" id="leeYescribeMs" value="Si {{ old('leeYescribeM') == 'Si' ? 'checked' : ''}}">
+                                        <label for="leeYescribeMs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeM') is-invalid @enderror"
+                                        name="leeYescribeM" id="leeYescribeMn" value="No {{ old('leeYescribeM') == 'No' ? 'checked' : ''}}">
+                                        <label for="leeYescribeMn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('leeYescribeM')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="escolaridadM">Escolaridad:</label>
+                                    <select name="escolaridadM" class="form-control @error('escolaridadM') is-invalid @enderror">
+                                        <option selected>-----</option>
+                                            <option>Primaria</option>    
+                                            <option>Secundaria</option>
+                                            <option>Preparatoria</option>
+                                            <option>Licenciatura</option>
+                                    </select>
+                                        @error('escolaridadM')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                    
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">No de hijos</label>
                                     <input type="number" class="form-control @error('noHijosM') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="noHijosM"  aria-describedby="emailHelp" value="{{old('noHijosM')}}">
                                     @error('noHijosM')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror    
                                 </div>
+                            </div>
 
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">3</span>
+                                            <span class="bs-stepper-label">DATOS DEL TUTOR</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
 
-                            <!----INFORMACIÓN DEL TUTOR----->
-                            <H4>Información del tutor</H4>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1" class="form-label">Nombres:</label>
+                                    <label for="exampleInputEmail1" class="form-label">Nombre(s):</label>
                                     <input type="text" class="form-control @error('nombresT') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="nombresT"  aria-describedby="emailHelp" value="{{ old('nombresT') }}">
                                     @error('nombresT')
@@ -330,7 +372,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Primer apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Primer apellido:</label>
                                     <input type="text" class="form-control @error('apellido1T') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido1T"  aria-describedby="emailHelp" value="{{ old('apellido1T') }}"> 
                                     @error('apellido1T')
@@ -340,7 +382,7 @@ Padres de familia | Sistema escolar
                                         @enderror 
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido</label>
+                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido:</label>
                                     <input type="text" class="form-control @error('apellido2T') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="apellido2T"  aria-describedby="emailHelp" value="{{ old('apellido2T') }}">
                                     @error('apellido2T')
@@ -351,118 +393,132 @@ Padres de familia | Sistema escolar
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Edad</label>
                                     <input type="number" class="form-control @error('edadT') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="edadT"  aria-describedby="emailHelp" value="{{old('edadT')}}">
                                     @error('edadT')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror    
                                 </div>
-
-
-                            <div class="mb-4">
+                                <div class="form-group col-md-4">
                                     <label for="start">Fecha de nacimiento:</label>
-                                    <input type="date" id="fechaNacT" name="fechaNacT" class="form-control @error('fechaNacT') is-invalid @enderror"
-                                    value="">
+                                    <input type="date" id="fechaNacM" name="fechaNacT" class="form-control @error('fechaNacT') is-invalid @enderror"
+                                    value="{{ old('fechaNacT') }}">
                                     @error('fechaNacT')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                            </div>
-
-                                        <div class="mb-4">
-                                        <label for="exampleInputEmail1" class="form-label">CURP:</label>
-                                            <input type="text" class="form-control form-control-user @error('curpT') is-invalid @enderror" 
-                                            style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                            id="" name="curpT"  value="{{old('curpT')}}">
-                                                @error('curpT')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror             
-                                        </div>
-
-                            <div class="form-group">
-                                <label for="viveT">
-                                    Vive
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveT') is-invalid @enderror" 
-                                    name="viveT" id="viveTs" value="Si {{ old('viveT') == 'Si' ? 'checked' : ''}}">
-                                    <label for="viveTs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('viveT') is-invalid @enderror"
-                                    name="viveT" id="viveTn" value="No {{ old('viveT') == 'No' ? 'checked' : ''}}">
-                                    <label for="viveTn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('viveT')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group">
-                                <label for="leeYescribeT">
-                                    Lee y escribe
-                                </label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeT') is-invalid @enderror" 
-                                    name="leeYescribeT" id="leeYescribeTs" value="Si {{ old('leeYescribeT') == 'Si' ? 'checked' : ''}}">
-                                    <label for="leeYescribeTs" class="form-check-label">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input @error('leeYescribeT') is-invalid @enderror"
-                                    name="leeYescribeT" id="leeYescribeTn" value="No {{ old('leeYescribeT') == 'No' ? 'checked' : ''}}">
-                                    <label for="leeYescribeTn" class="form-check-label">
-                                        No
-                                    </label>
-                                    @error('leeYescribeT')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div> 
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                    <label for="exampleInputEmail1" class="form-label">Escolaridad</label>
-                                    <input type="text" class="form-control @error('escolaridadT') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="escolaridadT"  aria-describedby="emailHelp" value="{{old('escolaridadT')}}">
-                                    @error('escolaridadT')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        </span>
+                                    @enderror 
                                 </div>
 
                                 <div class="form-group col-md-5">
+                                    <label for="exampleInputEmail1" class="form-label">CURP:</label>
+                                    <input type="text" class="form-control form-control-user @error('curpT') is-invalid @enderror" 
+                                    style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    id="" name="curpT"  value="{{old('curpT')}}">
+                                    @error('curpT')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror             
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="viveT">
+                                        ¿Vive?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveT') is-invalid @enderror" 
+                                        name="viveT" id="viveTs" value="Si {{ old('viveT') == 'Si' ? 'checked' : ''}}">
+                                        <label for="viveTs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('viveT') is-invalid @enderror"
+                                        name="viveT" id="viveTn" value="No {{ old('viveT') == 'No' ? 'checked' : ''}}">
+                                        <label for="viveTn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('viveT')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="leeYescribeT">
+                                        ¿Lee y escribe?
+                                    </label>
+                                    <br>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeT') is-invalid @enderror" 
+                                        name="leeYescribeT" id="leeYescribeTs" value="Si {{ old('leeYescribeT') == 'Si' ? 'checked' : ''}}">
+                                        <label for="leeYescribeTs" class="form-check-label">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input @error('leeYescribeT') is-invalid @enderror"
+                                        name="leeYescribeT" id="leeYescribeTn" value="No {{ old('leeYescribeT') == 'No' ? 'checked' : ''}}">
+                                        <label for="leeYescribeTn" class="form-check-label">
+                                            No
+                                        </label>
+                                        @error('leeYescribeT')
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
+                                    </div> 
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="escolaridadT">Escolaridad:</label>
+                                    <select name="escolaridadT" class="form-control @error('escolaridadT') is-invalid @enderror">
+                                        <option selected>-----</option>
+                                            <option>Primaria</option>    
+                                            <option>Secundaria</option>
+                                            <option>Preparatoria</option>
+                                            <option>Licenciatura</option>
+                                    </select>
+                                        @error('escolaridadT')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                    
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">No de hijos</label>
                                     <input type="number" class="form-control @error('noHijosT') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="noHijosT"  aria-describedby="emailHelp" value="{{old('noHijosT')}}">
                                     @error('noHijosT')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror    
                                 </div>
+                            </div>
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">4</span>
+                                            <span class="bs-stepper-label">DOMICILIO</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
 
-
-
-
-
-                                <!----DOMICILIO----->
+                               
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="exampleInputEmail1" class="form-label">Calle</label>
@@ -476,13 +532,18 @@ Padres de familia | Sistema escolar
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Numero</label>
-                                    <input type="number" class="form-control @error('numero') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="numero"  aria-describedby="emailHelp" value="{{old('numero')}}">
-                                    @error('numero')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror    
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">#</div>
+                                        </div>
+                                        <input type="number" class="form-control @error('numero') is-invalid @enderror"  
+                                        id="exampleInputEmail1" name="numero"  aria-describedby="emailHelp" value="{{old('numero')}}">
+                                        @error('numero')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror    
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="exampleInputEmail1" class="form-label">Colonia</label>
@@ -507,17 +568,22 @@ Padres de familia | Sistema escolar
                                                     </span>
                                                 @enderror 
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="exampleInputEmail1" class="form-label">Teléfono</label>
-                                    <input type="number" class="form-control @error('telefono') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="telefono"  aria-describedby="emailHelp" value="{{old('telefono')}}">
-                                    @error('telefono')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror 
-                                </div>
                                 <div class="form-group col-md-4">
+                                    <label for="exampleInputEmail1" class="form-label">Teléfono</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                                        </div>
+                                        <input type="number" class="form-control @error('telefono') is-invalid @enderror"  
+                                        id="exampleInputEmail1" name="telefono"  aria-describedby="emailHelp" value="{{old('telefono')}}">
+                                        @error('telefono')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror 
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Localidad</label>
                                     <input type="text" class="form-control @error('localidad') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="localidad"  aria-describedby="emailHelp" value="{{old('localidad')}}">   
@@ -527,7 +593,7 @@ Padres de familia | Sistema escolar
                                                     </span>
                                                 @enderror 
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="exampleInputEmail1" class="form-label">Municipio</label>
                                     <input type="text" class="form-control @error('municipio') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="municipio"  aria-describedby="emailHelp" value="{{old('municipio')}}">   

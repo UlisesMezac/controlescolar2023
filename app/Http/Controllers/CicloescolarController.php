@@ -52,20 +52,31 @@ class CicloescolarController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(request(),[
+        $data =request()->validate([
             'nombre' => ['required', 'string','min:5','max:30','unique:cicloescolar'],
-            'fechaIni' => 'required',
-            'fechaFin' => 'required',
-            'status' => 'required',
+            'fechaIni' => ['required'],
+            'fechaFin' => ['required'],
+            'status' => ['required'],
+        ],[
+
+            'nombre.required' => 'El campo nombre es obligatorio',
+            'nombre.max' => 'El campo nombre debe contener maximo 30 caracteres',
+            'nombre.min' => 'El campo nombre debe contener minimo 5 caracteres',
+
+            'fechaIni.required' => 'El campo fecha es obligatorio',
+            'fechaFin.required' => 'El campo fecha es obligatorio',
+
+            'status.required' => 'El campo status es obligatorio',
+
         ]);
-        $ciclo =  Cicloescolar::create(request([
-            'nombre',
-            'fechaIni',
-            'fechaFin',
-            'status',
-            ]));
-     
-            
+
+        $ciclo = new Cicloescolar();
+        $ciclo->nombre = $request->nombre;
+        $ciclo->fechaIni = $request->fechaIni;
+        $ciclo->fechaFin = $request->fechaFin;
+        $ciclo->status = $request->status;
+        $ciclo->save();
+              
             return redirect()->route('cicloescolar.index')->with('Agregar', 'ok');
 
     }

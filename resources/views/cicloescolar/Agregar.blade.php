@@ -14,7 +14,7 @@ Periodo escolar | Sistema escolar
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Index">Lista de periodos escolar</a></li>
+              <li class="breadcrumb-item"><a href="/Index">Lista de ciclo escolar</a></li>
               <li class="breadcrumb-item active">Agregar ciclo escolar</li>
             </ol>
           </div>
@@ -27,8 +27,8 @@ Periodo escolar | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-8 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#ffff">
-                    <h6 class="m-0 font-weight-bold text-danger">Registrar ciclo escolar</h6>
+                <div class="card-header py-3" style="background-color:#E30707">
+                    <h6 class="m-0 font-weight-bold text-light">Registrar ciclo escolar</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
@@ -49,12 +49,15 @@ Periodo escolar | Sistema escolar
 
                                 <div class="form-group col-md-6">
                                     <label for="inputState">Estado:</label>
-                                    <select name="status" class="form-control">
-                                        <option selected>----</option>
-                                        <option value="1">Activa</option>
-                                        <option value="0">Inactiva</option>
+                                    <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
                                     </select>
-                                    
+                                        @error('status')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="mb-4">
@@ -77,7 +80,7 @@ Periodo escolar | Sistema escolar
                                                 </span>
                                             @enderror
                             </div>    
-                        </div>
+                       
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-outline-success">{{ __('Registrar') }}</button>

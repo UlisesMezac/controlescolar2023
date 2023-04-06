@@ -26,18 +26,44 @@ Inscripción | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-10 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#ffff">
-                    <h6 class="m-0 font-weight-bold text-danger">Editar información</h6>
+                <div class="card-header py-3" style="background-color:#E30707">
+                    <h6 class="m-0 font-weight-bold text-light">Editar información</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
                         <form class="mt-4" method="POST" action="{{route('preinscripcion.update',$alumno)}}" enctype="multipart/form-data">
                             @csrf
                             @method('put')
-                            <h5 class="text-danger text-center">Información del aspirante</h5>
-                            <br>
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">1</span>
+                                            <span class="bs-stepper-label">DATOS DEL ASPIRANTE</span>
+                                        </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="tramite_id">Tramite</label>
+                                    <select name="tramite_id" class="form-control @error('tramite_id') is-invalid @enderror">
+                                    
+                                        @forelse ($tramite as $tramiteItem)
+                                            @if ($tramiteItem->id == 1)  
+                                                <option value="{{$tramiteItem->id}}">{{$tramiteItem->tramite}} </option>
+                                            @endif         
+                                        @endforeach
+                                    </select>
+                                        @error('tramite_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
 
-                            <div class="form-group col-md-12">
+                                <div class="form-group col-md-5">
                                     <label for="padres_id">Elegir padre de familia o <a class="btn-link" data-toggle="modal" data-target="#modal-lg"> Agregar</a></label>
                                     <select name="padres_id" class="form-control @error('padres_id') is-invalid @enderror">
                                        
@@ -51,6 +77,22 @@ Inscripción | Sistema escolar
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="cicloescolar_id">Ciclo escolar:</label>
+                                    <select name="cicloescolar_id" class="form-control @error('cicloescolar_id') is-invalid @enderror">
+                                       
+                                        @forelse ($ciclo as $cicloItem)
+                                            <option >{{$alumno->ciclo->nombre}}</option>
+                                            <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>    
+                                        @endforeach
+                                    </select>
+                                        @error('cicloescolar_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
                             </div>
 
                             <div class="form-row">
@@ -226,41 +268,6 @@ Inscripción | Sistema escolar
                                 </div>
                             </div>
 
-                            <div class="form-row justify-content-center">
-                                <div class="form-group col-md-6">
-                                    <label for="cicloescolar_id">Ciclo escolar:</label>
-                                    <select name="cicloescolar_id" class="form-control @error('cicloescolar_id') is-invalid @enderror">
-                                       
-                                        @forelse ($ciclo as $cicloItem)
-                                            <option >{{$alumno->ciclo->nombre}}</option>
-                                            <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>    
-                                        @endforeach
-                                    </select>
-                                        @error('cicloescolar_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="tramite_id">Tramite</label>
-                                    <select name="tramite_id" class="form-control @error('tramite_id') is-invalid @enderror">
-                                    
-                                        @forelse ($tramite as $tramiteItem)
-                                            @if ($tramiteItem->id == 1)  
-                                                <option value="{{$tramiteItem->id}}">{{$tramiteItem->tramite}} </option>
-                                            @endif         
-                                        @endforeach
-                                    </select>
-                                        @error('tramite_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <label for="">
                                     Documentos:
@@ -336,9 +343,17 @@ Inscripción | Sistema escolar
                                 </div>
                             </div>
 
-                            <hr class="">
-                            <h5 class="text-danger text-center">Información del domicilio</h5>
-                            <br>
+                            <div class="bs-stepper">
+                                <div class="bs-stepper-header" role="tablist">
+                                    <div  data-target="">
+                                        <div  class="step-trigger" >
+                                            <span class="bs-stepper-circle" style=" background-color:#E30707">2</span>
+                                            <span class="bs-stepper-label">DOMICILIO</span>
+                                    </div>
+                                    </div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
                            
 
                             <div class="form-row">

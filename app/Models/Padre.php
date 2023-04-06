@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Alumno;
 
 class Padre extends Model
 {
@@ -20,7 +21,6 @@ class Padre extends Model
         'leeYescribeP',
         'escolaridadP',
         'noHijosP',
-
         'nombresM',
         'apellido1M',
         'apellido2M',
@@ -31,7 +31,6 @@ class Padre extends Model
         'leeYescribeM',
         'escolaridadM',
         'noHijosM',
-
         'nombresT',
         'apellido1T',
         'apellido2T',
@@ -42,7 +41,6 @@ class Padre extends Model
         'leeYescribeT',
         'escolaridadT',
         'noHijosT',
-        
         'calle',
         'numero',
         'colonia',
@@ -52,7 +50,7 @@ class Padre extends Model
         'municipio',
     ];
 
-    public function alumnos(){
+    public function hijos(){
         return $this->hasMany('App\Models\Alumno');
     }
 

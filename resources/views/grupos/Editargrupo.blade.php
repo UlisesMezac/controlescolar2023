@@ -67,9 +67,10 @@ Grados y grupos | Sistema escolar
                                     <label for="cicloescolar_id">Ciclo escolar:</label>
                                     <select name="cicloescolar_id" class="form-control">
                                     
-                                        @forelse ($ciclo as $cicloItem)   
-                                            <option>{{$grupo->ciclo->nombre}}</option>                       
-                                            <option value="{{$cicloItem->id}}" >{{$cicloItem->nombre}}</option>    
+                                        @forelse ($ciclo as $cicloItem) 
+                                             @if ($cicloItem->status == 1)
+                                                    <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>
+                                                @endif 
                                         @endforeach
                                     </select>
                                 </div>

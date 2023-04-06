@@ -135,7 +135,7 @@
                 </li>
             <li class="nav-header">ADMINISTRACIÓN</li>
                 <li class="nav-item">
-                    <a href="gallery.html" class="nav-link">
+                    <a href="Indexus" class="nav-link">
                     <i class="nav-icon fas fa-fw fa-users"></i>
                     <p>
                         Usuarios
