@@ -11,7 +11,7 @@ class Grupo extends Model
    protected $table="grupos";
    protected $primaryKey="id";
    protected $fillable = [
-        'nombre','status','capacidad', 'cicloescolar_id',
+        'nombre','status','capacidad','maestros_id', 'cicloescolar_id',
    ];
 
    public $timestamps = false;
@@ -21,6 +21,13 @@ class Grupo extends Model
    }
 
    public function maestro(){
-    return $this->belongsTo(Maestro::class, 'maestro_id');
-     }
+    return $this->belongsTo(Maestro::class, 'maestros_id');
+   }
+
+
+    public function alumnos(){
+          return $this->hasMany(Alumno::class, 'grupos_id');
+      }
+
+
 }

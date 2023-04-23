@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Grupo;
+
 
 
 class Maestro extends Model
@@ -17,13 +17,12 @@ class Maestro extends Model
        'especialidad','curp','domicilio'
    ];
 
-   /*public function grupo(){
-        return $this->hasMany(Grupo::class, 'id');
-    }*/
-
-
-    //relación de uno a muchos
-    public function grupos(){
-        return $this->hasMany('App\Models\Grupo');
+   //relación de uno a muchos
+   public function grupos(){
+        return $this->hasMany(Grupo::class, 'maestros_id');
     }
+
+
+    
+    
 }

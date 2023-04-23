@@ -18,12 +18,20 @@ class CreateGruposTable extends Migration
             $table->string('nombre',5);
             $table->string('status',10);
             $table->string('capacidad',2);
+            $table->timestamps();
             
+            $table->foreignId('maestros_id')
+                    ->nullable()
+                    ->constrained('maestros')
+                    ->cascadeUpdate()
+                    ->nullOnDelete();
+
             $table->foreignId('cicloescolar_id')
-                  ->nullable()
-                  ->constrained('cicloescolar')
-                  ->cascadeUpdate()
-                  ->nullOnDelete();
+                    ->nullable()
+                    ->constrained('cicloescolar')
+                    ->cascadeUpdate()
+                    ->nullOnDelete();
+        
         });
     }
 

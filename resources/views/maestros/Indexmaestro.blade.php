@@ -67,9 +67,9 @@ Maestros | Sistema escolar
                                 </td>
                                 <td>
                                         <form action="{{route('maestro.destroy',$maestroItem)}}" class="d-inline formulario-eliminar" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button class="btn btn-outline-danger float-right waves-effect px-3 ml-2"><i class="fas fa-trash" aria-hidden="true"></i></button>        
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-outline-danger float-right waves-effect px-3 ml-2"><i class="fas fa-trash" aria-hidden="true"></i></button>        
                                         </form>
 
                                         <a href="{{route('maestro.edit',$maestroItem)}}">

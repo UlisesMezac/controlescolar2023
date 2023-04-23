@@ -60,16 +60,18 @@ Periodo escolar | Sistema escolar
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('cicloescolar.edit',$cicloItem)}}">
-                                            <button class="btn btn-outline-warning waves-effect px-3"><i class="far fa-edit"></i></button>
-                                        </a>
-                                        <form action="{{route('cicloescolar.destroy',['id' => $cicloItem->id])}}" class="d-inline formulario-eliminar" method="POST">
-                                            @csrf
-                                            @method('delete')       
-                                            <button  class="btn btn-outline-danger float-right waves-effect px-3 ">
-                                                <i class="fas fa-trash"></i>
-                                            </button> 
-                                        </form>
+                                    
+                                                <a href="{{route('cicloescolar.edit',$cicloItem)}}">
+                                                    <button class="btn btn-outline-warning waves-effect px-3"><i class="far fa-edit"></i></button>
+                                                </a>
+                                       
+                                                <form action="{{route('cicloescolar.destroy',['id' => $cicloItem->id])}}" class="d-inline formulario-eliminar" method="POST">
+                                                    @csrf
+                                                    @method('delete')       
+                                                    <button  class="btn btn-outline-danger float-right waves-effect px-3 ">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button> 
+                                                </form>
                                     </td>
                                 </tr>
                             </tbody>

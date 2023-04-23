@@ -118,7 +118,7 @@
                         </a>
                 </li>
                 <li class="nav-item">
-                        <a href="widgets.html" class="nav-link">
+                        <a href="Indexinscripcion" class="nav-link">
                         <i class="nav-icon fas fa-address-card"></i>
                         <p>
                             Inscripción
@@ -126,7 +126,7 @@
                         </a>
                 </li>
                 <li class="nav-item">
-                        <a href="widgets.html" class="nav-link">
+                        <a href="Agregartras" class="nav-link">
                         <i class="nav-icon fas fa-fw fa-people-carry"></i>
                         <p>
                             Traslados

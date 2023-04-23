@@ -43,6 +43,7 @@ class Alumno extends Model
         'cicloescolar_id',
         'tramite_id',
         'padres_id',
+        'grupos_id',
      ];
 
     public $timestamps = false;
@@ -57,8 +58,10 @@ class Alumno extends Model
 
     public function trami(){
         return $this->belongsTo(Tramite::class, 'tramite_id');
-        }
+    }
+
+    public function grupo(){
+        return $this->belongsTo(Grupo::class, 'grupos_id');
+    }
     
-
-
 }

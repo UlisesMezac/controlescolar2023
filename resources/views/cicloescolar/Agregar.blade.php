@@ -23,8 +23,7 @@ Periodo escolar | Sistema escolar
 </section>
 
 <section class="content">
-
-    <div class="row justify-content-center" >
+    <div class="row justify-content-center">
         <div class="col-lg-8 mb-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3" style="background-color:#E30707">

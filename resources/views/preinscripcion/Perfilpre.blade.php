@@ -162,17 +162,14 @@ Inscripción | Sistema escolar
             </li>
           </ul>
           <div class="text-center mt-5 mb-3">
-                <a href="{{route('preinscripcion.edit',$alumno)}}" class="btn btn-sm btn-primary">Editar información</a>
-                <a href="{{ route('preinscripcion.pdf', ['id' => $alumno->id]) }}" target="_blank" class="btn btn-sm btn-warning"><i class="fas fa-download"></i> Descargar ficha</a>
-              </div>
+            <a href="{{route('preinscripcion.edit',$alumno)}}" class="btn btn-sm btn-primary">Editar información</a>
+            <a href="{{ route('preinscripcion.pdf', ['id' => $alumno->id]) }}" target="_blank" class="btn btn-sm btn-warning"><i class="fas fa-download"></i> Descargar ficha</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 </section>
-
-
-
 
 @endsection

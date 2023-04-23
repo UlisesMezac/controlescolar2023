@@ -9,16 +9,9 @@ use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\PreinscripcionController;
 use App\Http\Controllers\PadresController;
 use App\Http\Controllers\UsuariosController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\AlumnosController;
+use App\Http\Controllers\TrasladoController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -27,9 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-
 ////MENU////
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home/agregar', [App\Http\Controllers\HomeController::class, 'store']);
@@ -40,7 +31,6 @@ Route::get('/Indexus',[UsuariosController::class,'index'])->name('usuario.index'
 
 
 //// CRUD DE CICLO ESCOLAR////
-
 Route::get('/Index',[CicloescolarController::class,'index'])->name('cicloescolar.index')->middleware('auth');
 
 Route::get('/Agregar',[CicloescolarController::class,'create'])->name('cicloescolar.create')->middleware('auth');
@@ -72,8 +62,6 @@ Route::delete('/Indexmaestro/{maestro}',[MaestrosController::class,'destroy'])->
 Route::get('Indexmaestro/pdf', [MaestrosController::class, 'pdf'])->name('maestro.pdf')->middleware('auth');
 
 
-
-
 ////CRUD DE GRUPOS////
 Route::get('/Indexgrupo',[GruposController::class,'index'])->name('grupo.index')->middleware('auth');
 
@@ -87,9 +75,16 @@ Route::put('/Editargrupo.{grupo}',[GruposController::class,'update'])->name('gru
 
 Route::delete('/Indexgrupo/{grupo}',[GruposController::class,'destroy'])->name('grupo.destroy')->middleware('auth');
 
+Route::get('/Perfilgrupo.{id}',[GruposController::class,'show'])->name('grupo.show')->middleware('auth');
+
+Route::get('/Perfilalumno.{id}',[GruposController::class,'perfil'])->name('grupo.perfil')->middleware('auth');
+
+Route::get('Perfilgrupo/pdf.{id}', [GruposController::class, 'pdf'])->name('grupo.pdf')->middleware('auth');
+
+Route::get('Credencial/credencial.{id}', [GruposController::class, 'credencial'])->name('grupo.credencial')->middleware('auth');
+
 
 ////CRUD DE PREINSCRIPCIÓN////
-
 Route::get('/Agregarpre',[PreinscripcionController::class,'create'])->name('preinscripcion.create')->middleware('auth');
 
 Route::post('/Agregarpre',[PreinscripcionController::class,'store'])->name('preinscripcion.store')->middleware('auth');
@@ -114,5 +109,26 @@ Route::post('/Agregarpre.padres',[PadresController::class,'store'])->name('padre
 
 Route::get('/Perfilpadre.{id}',[PadresController::class,'show'])->name('padre.show')->middleware('auth');
 
+Route::get('/Editarpadre.{padre}',[PadresController::class,'edit'])->name('padre.edit')->middleware('auth');
+
+Route::put('/Editarpadre.{padre}',[PadresController::class,'update'])->name('padre.update')->middleware('auth');
 
 
+////CRUD DE INSCRIPCIÓN////
+Route::get('/Indexinscripcion',[InscripcionController::class,'index'])->name('inscripcion.index')->middleware('auth');
+
+Route::get('/Agregarinscripcion.{alumno}',[InscripcionController::class,'create'])->name('inscripcion.create')->middleware('auth');
+
+Route::put('/Agregarinscripcion.{alumno}',[InscripcionController::class,'update'])->name('inscripcion.update')->middleware('auth');
+
+
+////CRUD DE ALUMNOS////
+Route::get('/Editaralumno.{alumno}',[AlumnosController::class,'edit'])->name('alumno.edit')->middleware('auth');
+
+Route::put('/Editaralumno.{alumno}',[AlumnosController::class,'update'])->name('alumno.update')->middleware('auth');
+
+
+////CRUD DE ALUMNOS////
+Route::get('/Agregartras',[TrasladoController::class,'create'])->name('traslado.create')->middleware('auth');
+
+Route::post('/Agregartras',[TrasladoController::class,'store'])->name('traslado.store')->middleware('auth');

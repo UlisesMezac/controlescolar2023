@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cicloescolar;
+use App\Models\Grupo;
 
 
 class CicloescolarController extends Controller
@@ -15,6 +16,7 @@ class CicloescolarController extends Controller
      */
     public function index(Request $request)
     {
+        $grupo = Grupo::all();
         $texto = $request->texto;
         $ciclo = Cicloescolar::where('nombre','LIKE','%'.$texto.'%')
                     ->orWhere('fechaIni','LIKE','%'.$texto.'%')
@@ -27,8 +29,8 @@ class CicloescolarController extends Controller
             'texto'=>$texto,
         ];
 
-        return view('cicloescolar.Index',compact('ciclo'));
-        return view('home',compact('ciclo'));
+        return view('cicloescolar.Index',compact('ciclo','grupo'));
+      
     }
 
 

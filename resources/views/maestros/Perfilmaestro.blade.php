@@ -98,36 +98,41 @@
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                
-                <div class="table-responsive my-3">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>Grupo</th>
-                        <th>Estado</th>            
-                      </tr>
-                    </thead>
-                    <tbody>
-                     
-                          <tr>
-                            <td><a href=""></a></td>
-                            <td>
-                                  
-                            </td>
-                          </tr>
-                     
-                      
-                        <h6>No se ha asignado grupo al profesor. </h6> 
-                        <a href="{{route ('grupo.create')}}">
-                          ¿Desea asignar grupo?
-                        </a>
-                     
-                    </tbody>
-                  </table>
-                </div>   
+                  <div class="table-responsive my-3">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Grupo</th>
+                          <th>Periodo</th>
+                          <th>Estado</th>            
+                        </tr>
+                      </thead>
+                      <tbody>
+                      @if ($maestro->grupos->count() > 0)
+          
+                        @foreach ($maestro->grupos as $grupo )
+                            <tr>
+                              <td><a href="{{ route('grupo.show', ['id' => $grupo->id]) }}">{{$grupo->nombre}}</a></td>
+                              <td>{{$grupo->ciclo->nombre}}</td>
+                              <td>
+                                @if ($grupo->status == 1)
+                                  <h6 class="m-0 font-weight-bold text-success text-center"><i class="fas fa-circle"></i> Activo</h6>
+                                @else
+                                  <h6 class="m-0 font-weight-bold text-danger text-center"><i class="fas fa-times"></i> Inactivo</h6>
+                                @endif
+                              </td>
+                            </tr>
+                        @endforeach
 
-
-            
+                      @else
+                          <h6>No se ha asignado grupo al profesor. </h6> 
+                          <a href="{{route ('grupo.create')}}">
+                            ¿Desea asignar grupo?
+                          </a>
+                      @endif
+                      </tbody>
+                    </table>
+                  </div>   
                 </div>
               </div>
             </div>

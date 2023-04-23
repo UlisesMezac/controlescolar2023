@@ -35,7 +35,7 @@ Grados y grupos | Sistema escolar
                                 @csrf
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="exampleInputEmail1" class="form-label">Grupo:</label>
                                         <input type="text" class="form-control form-control-user @error('nombre') is-invalid @enderror"
                                         id="exampleInputEmail" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus
@@ -49,7 +49,7 @@ Grados y grupos | Sistema escolar
                                                 @enderror
                                     </div>
                                     
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="inputState">Estado:</label>
                                         <select name="status" class="form-control @error('status') is-invalid @enderror">
                                             <option value="1">Activo</option>
@@ -61,12 +61,7 @@ Grados y grupos | Sistema escolar
                                                     </span>
                                         @enderror
                                     </div>
-                                </div>
-
-
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="cicloescolar_id">Ciclo escolar:</label>
                                         <select name="cicloescolar_id" class="form-control">
                                             @forelse ($ciclo as $cicloItem)
@@ -76,7 +71,23 @@ Grados y grupos | Sistema escolar
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6">
+
+                                </div>
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="maestros_id">Maestro:</label>
+                                        <select name="maestros_id" class="form-control">
+                                            @forelse ($maestro as $maestroItem)
+                                                @if ($maestroItem->status == 1)
+                                                    <option value="{{$maestroItem->id}}">{{$maestroItem->nombres}} {{$maestroItem->apellidoP}} {{$maestroItem->apellidoM}}</option>
+                                                @endif 
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
                                         <label for="exampleInputEmail1" class="form-label">Capacidad:</label>
                                         <input type="number" class="form-control form-control-user @error('capacidad') is-invalid @enderror"
                                         id="exampleInputEmail" name="capacidad" value="{{ old('capacidad') }}">

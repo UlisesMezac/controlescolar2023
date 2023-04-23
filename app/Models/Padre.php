@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Alumno;
+
 
 class Padre extends Model
 {
@@ -50,9 +50,10 @@ class Padre extends Model
         'municipio',
     ];
 
-    public function hijos(){
-        return $this->hasMany('App\Models\Alumno');
-    }
+   
 
+    public function hijos(){
+        return $this->hasMany(Alumno::class, 'padres_id');
+    }
 
 }

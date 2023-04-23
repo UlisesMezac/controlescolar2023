@@ -44,9 +44,10 @@ Grados y grupos | Sistema escolar
                             <tr>
                                 <th style="width: 80px">Grado y grupo</th>
                                 <th style="width: 200px">Ciclo escolar</th>
-                                <th style="width: 200px">Capacidad</th>
+                                <th style="width: 200px">Profesor</th>
+                                <th style="width: 100px">Capacidad</th>
                                 <th style="width: 100px">Estado</th>
-                                <th style="width: 100px">Acción</th>
+                                <th style="width: 180px">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,6 +55,7 @@ Grados y grupos | Sistema escolar
                             <tr>
                                 <td>{{$grupoItem->nombre}}</td>
                                 <td>{{$grupoItem->ciclo->nombre}}</td>
+                                <td>{{$grupoItem->maestro->nombres}} {{$grupoItem->maestro->apellidoP}} {{$grupoItem->maestro->apellidoM}}</td>
                                 <td>{{$grupoItem->capacidad}}</td>
                                 <td align="center">
                                     @if ($grupoItem->status == 1)
@@ -65,16 +67,21 @@ Grados y grupos | Sistema escolar
                                 
                                 
                                 <td>
-                                    <a href="{{route('grupo.edit',$grupoItem)}}">
-                                        <button class="btn btn-outline-warning waves-effect px-3"><i class="far fa-edit"></i></button>
-                                        <a href="{{route('grupo.edit',$grupoItem)}}">  
                                     <form action="{{route('grupo.destroy',$grupoItem)}}" class="d-inline formulario-eliminar" method="POST">
                                         @csrf
                                          @method('delete')                                                               
-                                        <button  class="btn btn-outline-danger float-right waves-effect px-3 ">
+                                        <button  class="btn btn-outline-danger float-right waves-effect px-3 ml-2">
                                             <i class="fas fa-trash"></i>
                                         </button> 
                                     </form>
+
+                                    <a href="{{route('grupo.edit',$grupoItem)}}">
+                                        <button class="btn btn-outline-warning waves-effect px-3 ml-2"><i class="far fa-edit"></i></button>
+                                    <a href="{{route('grupo.edit',$grupoItem)}}">  
+                                    
+                                    <a href="{{ route('grupo.show', ['id' => $grupoItem->id]) }}">
+                                            <button class="btn btn-outline-primary float-right px-3"><i class="fas fa-users-cog" aria-hidden="true"></i></button>
+                                    </a>
                                 </td>
                             </tr>
                             @empty

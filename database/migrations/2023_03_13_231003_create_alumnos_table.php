@@ -51,13 +51,13 @@ class CreateAlumnosTable extends Migration
             $table->char('copiaIne',2)->comment('Si = Si')->nullable();
 
              //////DOCUMENTACIÓN PARA LA INSCRIPCIÓN/////////
-            $table->string('acta')->nullable();
-            $table->string('certificadoKinder')->nullable();
+            $table->char('acta',2)->comment('Si = Si')->nullable();
+            $table->char('certificadoKinder',2)->comment('Si = Si')->nullable();
 
             //////DOCUMENTACIÓN PARA TRASLADO/////////
             $table->string('escuelaProcedencia',30)->nullable();
-            $table->string('boletaAnterior')->nullable();
-            $table->string('constanciaPrimaria')->nullable();
+            $table->char('boletaAnterior',2)->comment('Si = Si')->nullable();
+            $table->char('constanciaPrimaria',2)->comment('Si = Si')->nullable();
 
             //////LLAVES FORANEAS/////////
             $table->foreignId('cicloescolar_id')
@@ -75,6 +75,12 @@ class CreateAlumnosTable extends Migration
             $table->foreignId('padres_id')
                   ->nullable()
                   ->constrained('padres')
+                  ->cascadeUpdate()
+                  ->nullOnDelete();
+
+            $table->foreignId('grupos_id')
+                  ->nullable()
+                  ->constrained('grupos')
                   ->cascadeUpdate()
                   ->nullOnDelete();
                              

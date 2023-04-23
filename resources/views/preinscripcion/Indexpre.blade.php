@@ -26,13 +26,13 @@ Inscripción | Sistema escolar
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3" style=" background-color:#ffff">
-                <h6 class="m-0 font-weight-bold text-danger">Lista de ciclo escolar</h6>
+                <h6 class="m-0 font-weight-bold text-danger">Lista de fichas de preinscripción</h6>
             </div>
             <div class="card-body">
                 <a href="{{route('preinscripcion.create')}}">
                     <button type="button" class="btn btn-outline-primary"> <i class="far fa-calendar"></i> + Nuevo</button>
                 </a>
-                <form  method="GET" action="" class="form-inline my-2 my-lg-0 float-right">
+                <form  method="GET" action="{{route('inscripcion.index')}}" class="form-inline my-2 my-lg-0 float-right">
                     <input type="text" name="texto" class="form-control mr-sm-2" placeholder="Buscar...." aria-label="Search" >
                     
                     <input type="submit" class="btn btn-outline-danger" value="Buscar">
@@ -51,26 +51,28 @@ Inscripción | Sistema escolar
                         @forelse ($alumno as $alumnoItem)
                             <tbody>
                                 <tr>
-                                  @if ($alumnoItem->tramite_id == 1)
                                     <td>{{$alumnoItem->id}}</td>
                                     <td>{{$alumnoItem->matricula}}</td>
                                     <td >{{$alumnoItem->curp}}</td>
-                                    <td>{{$alumnoItem->nombres}} {{$alumnoItem->apellidoP}} {{$alumnoItem->apellidoM}}</td>
-                                  @endif
+                                    <td>{{$alumnoItem->nombres}} {{$alumnoItem->apellidoP}} {{$alumnoItem->apellidoM}}</td> 
                                     <td>
-                                    <form action="" class="d-inline formulario-eliminar" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button class="btn btn-outline-danger float-right waves-effect px-3 ml-2"><i class="fas fa-trash" aria-hidden="true"></i></button>        
+                                    @if ($alumnoItem->tramite_id == 1)
+                                        <form action="" class="d-inline formulario-eliminar" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-outline-danger float-right waves-effect px-3 ml-2"><i class="fas fa-trash" aria-hidden="true"></i></button>        
                                         </form>
-
                                         <a href="{{route('preinscripcion.edit',$alumnoItem)}}">
                                                     <button class="btn btn-outline-warning float-right waves-effect px-3 ml-2"><i class="far fa-edit" aria-hidden="true"></i></button>
                                         </a>
-
                                         <a href="{{ route('preinscripcion.show', ['id' => $alumnoItem->id]) }}">
                                             <button class="btn btn-outline-primary float-right px-3"><i class="fas fa-users-cog" aria-hidden="true"></i></button>
                                         </a>
+                                    @else
+                                        <a href="">
+                                            <button type="button" class="btn btn-sm btn-success">Inscrito </button>
+                                        </a>
+                                    @endif
                                     </td>
                                 </tr>
                             </tbody>

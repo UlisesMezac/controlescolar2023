@@ -26,16 +26,17 @@ Grados y grupos | Sistema escolar
     <div class="row justify-content-center" >
         <div class="col-lg-7 mb-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3" style=" background-color:#ffff">
-                    <h6 class="m-0 font-weight-bold text-danger">Editar información</h6>
+                <div class="card-header py-3" style="background-color:#E30707">
+                    <h6 class="m-0 font-weight-bold text-light">Editar información</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
                     <form class="mt-4"  method="POST" action="{{route('grupo.update',$grupo)}}" enctype="multipart/form-data">
                         @csrf                             
                         @method('put') 
+
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label for="exampleInputEmail1" class="form-label">Grupo:</label>
                                     <input type="text" class="form-control form-control-user @error('nombre') is-invalid @enderror"
                                     id="exampleInputEmail" name="nombre" value="{{$grupo->nombre}}" required autocomplete="nombre" autofocus
@@ -46,7 +47,7 @@ Grados y grupos | Sistema escolar
                                             </span>
                                         @enderror
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                             <label for="inputState">Estado</label>
                                             <select name="status" class="form-control">
                                                 <option selected>
@@ -60,10 +61,7 @@ Grados y grupos | Sistema escolar
                                                 <option value="0">Inactivo</option>
                                             </select>
                                 </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label for="cicloescolar_id">Ciclo escolar:</label>
                                     <select name="cicloescolar_id" class="form-control">
                                     
@@ -74,7 +72,21 @@ Grados y grupos | Sistema escolar
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                        <label for="maestros_id">Maestro:</label>
+                                        <select name="maestros_id" class="form-control">
+                                            @forelse ($maestro as $maestroItem)
+                                                @if ($maestroItem->status == 1)
+                                                    <option value="{{$maestroItem->id}}">{{$maestroItem->nombres}} {{$maestroItem->apellidoP}} {{$maestroItem->apellidoM}}</option>
+                                                @endif 
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <div class="form-group col-md-4">
                                     <label for="exampleInputEmail1" class="form-label">Capacidad:</label>
                                     <input type="number" class="form-control form-control-user @error('capacidad') is-invalid @enderror"
                                     id="exampleInputEmail" name="capacidad" value="{{$grupo->capacidad}}">
