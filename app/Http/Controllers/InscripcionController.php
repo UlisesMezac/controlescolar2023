@@ -7,6 +7,7 @@ use App\Models\Alumno;
 use App\Models\Tramite;
 use App\Models\Cicloescolar;
 use App\Models\Padre;
+use App\Models\Proceso;
 use App\Models\Grupo;
 
 class InscripcionController extends Controller
@@ -18,22 +19,35 @@ class InscripcionController extends Controller
      */
     public function index(request $request)
     {
+        $alumno = Alumno::all();
         $texto = $request->texto;
-        $alumno = Alumno::where('folio','LIKE','%'.$texto.'%')
-                        ->orWhere('matricula','LIKE','%'.$texto.'%')
-                        ->orWhere('nombres','LIKE','%'.$texto.'%')
-                        ->orWhere('apellidoP','LIKE','%'.$texto.'%')
-                        ->orWhere('apellidoM','LIKE','%'.$texto.'%')
-                        ->orWhere('curp','LIKE','%'.$texto.'%')
-                        ->orWhere('padres_id','LIKE','%'.$texto.'%')
-                        ->latest('id')
-                        ->orderBy('folio','asc')
-                        ->paginate(10);
+        $proceso = Proceso::where('id','LIKE','%'.$texto.'%')
+                ->orWhere('cicloescolar_id','LIKE','%'.$texto.'%')
+                ->latest('id')
+                ->orderBy('id','asc')
+                ->paginate(10);
         $data=[
             'alumno'=>$alumno,
             'texto'=>$texto,
         ];
-        return view('inscripcion.Indexinscripcion', compact('alumno'));
+        return view('inscripcion.Indexinscripcion', compact('alumno','proceso'));
+    }
+
+
+    public function procesoindex(request $request)
+    {
+        $alumno = Alumno::all();
+        $texto = $request->texto;
+        $proceso = Proceso::where('id','LIKE','%'.$texto.'%')
+                ->orWhere('cicloescolar_id','LIKE','%'.$texto.'%')
+                ->latest('id')
+                ->orderBy('id','asc')
+                ->paginate(10);
+        $data=[
+            'alumno'=>$alumno,
+            'texto'=>$texto,
+        ];
+        return view('inscripcion.procesoindex', compact('alumno','proceso'));
     }
 
     /**
@@ -41,24 +55,42 @@ class InscripcionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Alumno $alumno)
+    public function create(Proceso $proceso)
     {
         $tramite = Tramite::all();
         $ciclo = Cicloescolar::all();
-        $padre = Padre::all();
+        $alumno = Alumno::orderBy('created_at','DESC')->get();
         $grupo = Grupo::all();
-        return view('inscripcion.Agregarinscripcion', compact('alumno', 'tramite','ciclo','padre','grupo'));
+        return view('inscripcion.Agregarinscripcion', compact('alumno','tramite','ciclo','grupo','proceso'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+  
+    public function store(Request $request, Proceso $proceso)
     {
-        //
+        $data =request()->validate([
+           
+            'acta' => ['required'],
+            'curp' => ['required'],
+            'certificadoKinder' => ['required'],
+           
+        ],[
+
+            'acta.required' => 'El campo acta es obligatorio',
+          
+            'curp.required' => 'El campo curp es obligatorio',
+
+            'certificadoKinder.required' => 'El campo certificado es obligatorio',
+
+        ]);
+
+        $proceso->acta=$request->acta;
+        $proceso->curp=$request->curp;
+        $proceso->certificadoKinder=$request->certificadoKinder;
+        $proceso->cicloescolar_id=$request->cicloescolar_id;
+        $proceso->tramite_id=$request->tramite_id;
+        $proceso->alumnos_id=$request->alumnos_id;
+        $proceso->grupos_id=$request->grupos_id;
+        $proceso->save();
+        return redirect()->route('inscripcion.index')->with('Editar', 'ok');
     }
 
     /**
@@ -78,9 +110,9 @@ class InscripcionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Proceso $proceso)
     {
-        //
+         
     }
 
     /**
@@ -92,58 +124,7 @@ class InscripcionController extends Controller
      */
     public function update(Request $request, Alumno $alumno)
     {
-        $data =request()->validate([
-            'matricula' => ['required','max:10','min:10'],
-            'nombres' => ['required','max:30'],
-            'apellidoP' => ['required','max:30'],
-            'apellidoM' => ['required','max:30'],
-            'fechaNac' => ['required'],
-            'acta' => ['required'],
-            'certificadoKinder' => ['required'],
-            'curp' => ['required','max:18','min:18'],
-            'cicloescolar_id' => ['required'],
-            'tramite_id' => ['required'],
-            'padres_id' => ['required'],
         
-        ],[
-
-            'nombres.required' => 'El campo nombre es obligatorio',
-            'nombre.max' => 'El campo nombre debe contener maximo 30 caracteres',
-
-            'matricula.required' => 'El campo matricula  es obligatorio',
-            'matricula.max' => 'El campo matricula debe contener maximo 10 caracteres',
-            'matricula.min' => 'El campo matricula debe contener minimo 10 caracteres',
-
-            'curp.required' => 'El campo curp  es obligatorio',
-            'curp.max' => 'El campo curp debe contener maximo 18 caracteres',
-            'curp.min' => 'El campo curp debe contener minimo 18 caracteres',
-
-            'apellidoP.required' => 'El campo apellidos es obligatorio',
-            'apellidoM.required' => 'El campo apelidos es obligatorio',
-            'fechaNac.required' => 'El campo fecha de nacimiento es obligatorio',
-            'curp.required' => 'El campo curp es obligatorio',
-            'acta.required' => 'El campo acta es obligatorio',
-            'certificadoKinder.required' => 'El campo certificado es obligatorio',
-
-
-        ]);
-
-
-        $alumno->nombres=$request->nombres;
-        $alumno->apellidoP=$request->apellidoP;
-        $alumno->apellidoM=$request->apellidoM;
-        $alumno->curp=$request->curp;
-        $alumno->matricula=$request->matricula;
-        $alumno->fechaNac=$request->fechaNac;
-        $alumno->acta=$request->acta;
-        $alumno->certificadoKinder=$request->certificadoKinder;
-        $alumno->padres_id=$request->padres_id;
-        $alumno->cicloescolar_id=$request->cicloescolar_id;
-        $alumno->tramite_id=$request->tramite_id;
-        $alumno->grupos_id=$request->grupos_id;
-       
-        $alumno->save();
-        return redirect()->route('inscripcion.index')->with('Editar', 'ok');
        
     }
 

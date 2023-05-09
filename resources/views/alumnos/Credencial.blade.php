@@ -7,9 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-        {{$alumno->grupo->ciclo->nombre}}
-        {{$alumno->grupo->nombre}}
-        {{$alumno->nombres}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}
-        {{$alumno->curp}} 
+        {{$proceso->grupo->ciclo->nombre}}
+        
+        {{$proceso->grupo->maestro->nombres}}
+       
+        {{$proceso->grupo->nombre}}
+
+        {{$proceso->alumno->nombres}} {{$proceso->alumno->apellidoP}} {{$proceso->alumno->apellidoM}}
+
+        {{$proceso->alumno->curp}} 
+
+       
+                
 </body>
 </html>

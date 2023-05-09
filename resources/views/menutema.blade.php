@@ -110,7 +110,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-header">TRAMITES</li>
                 <li class="nav-item">
-                        <a href="Indexpre" class="nav-link">
+                        <a href="Agregaralumno" class="nav-link">
                         <i class="nav-icon fas fa-fw fa-address-book"></i>
                         <p>
                             Preincripción
@@ -130,6 +130,14 @@
                         <i class="nav-icon fas fa-fw fa-people-carry"></i>
                         <p>
                             Traslados
+                        </p>
+                        </a>
+                </li>
+                <li class="nav-item">
+                        <a href="Indexreins" class="nav-link">
+                        <i class="nav-icon fas fa-fw fa-people-carry"></i>
+                        <p>
+                          Reinscripción
                         </p>
                         </a>
                 </li>

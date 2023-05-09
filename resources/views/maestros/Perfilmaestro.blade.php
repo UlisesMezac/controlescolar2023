@@ -50,15 +50,17 @@
                     <b> Curp:</b> <a class="float-right">{{$maestro->curp}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Edad:</b> <a class="float-right">{{$maestro->edad}}</a>
+                    <b><i class="far fa-calendar-alt"></i> Fecha de nacimiento:</b> <a class="float-right">{{$maestro->fechaNac}}</a>
                   </li>
                   <li class="list-group-item">
                     <b><i class="fas fa-phone-alt"></i> Telefono:</b> <a class="float-right">{{$maestro->telefono}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b><i class="fas fa-envelope"></i>  Correo electrónic</b> <a class="float-right">{{$maestro->correo}}</a>
+                    <b><i class="fas fa-envelope"></i>  Correo electrónico</b> <a class="float-right">{{$maestro->correo}}</a>
                   </li>
-                </ul>
+                  <li class="list-group-item">
+                    <b><i class="far fa-calendar-alt"></i> Fecha de registro:</b> <a class="float-right">{{date('d - m - Y', strtotime($maestro->created_at))}}</a>
+                  </li>                                                         
                 <div class="form-row justify-content-center">
                     <div class="form-group col-md-">
                       <a href="{{route('maestro.edit',$maestro)}}">

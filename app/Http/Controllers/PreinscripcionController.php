@@ -8,6 +8,8 @@ use App\Models\Alumno;
 use App\Models\Cicloescolar;
 use App\Models\Tramite;
 use App\Models\Padre;
+use App\Models\Grupo;
+use App\Models\Proceso;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -22,25 +24,23 @@ class PreinscripcionController extends Controller
     
     public function index(request $request)
     {
-        
+        $ciclo = Cicloescolar::all();
+        $alumno = Alumno::all();
+        $grupo = Grupo::all();
         $texto = $request->texto;
-        $alumno = Alumno::where('folio','LIKE','%'.$texto.'%')
-                        ->orWhere('matricula','LIKE','%'.$texto.'%')
-                        ->orWhere('nombres','LIKE','%'.$texto.'%')
-                        ->orWhere('apellidoP','LIKE','%'.$texto.'%')
-                        ->orWhere('apellidoM','LIKE','%'.$texto.'%')
-                        ->orWhere('curp','LIKE','%'.$texto.'%')
-                        ->orWhere('padres_id','LIKE','%'.$texto.'%')
+        $proceso = Proceso::where('id','LIKE','%'.$texto.'%')
+                        ->orWhere('cicloescolar_id','LIKE','%'.$texto.'%')
                         ->latest('id')
-                        ->orderBy('folio','asc')
+                        ->orderBy('id','asc')
                         ->paginate(10);
         $data=[
-            'alumno'=>$alumno,
+            'proceso'=>$proceso,
             'texto'=>$texto,
         ];
-        return view('preinscripcion.Indexpre', compact('alumno'));
+        return view('preinscripcion.Indexpre', compact('proceso','ciclo','alumno','grupo'));
 
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,11 +49,10 @@ class PreinscripcionController extends Controller
      */
     public function create()
     {
-        $alumno = new Alumno();
+        $alumno =  Alumno::latest('created_at')->get();
         $ciclo = Cicloescolar::all();
         $tramite = Tramite::all();
-        $padre = Padre::orderBy('created_at','DESC')->get();
-        return view('preinscripcion.Agregarpre',compact('alumno','ciclo','tramite','padre'));
+        return view('preinscripcion.Agregarpre',compact('alumno','ciclo','tramite'));
     }
 
     /**
@@ -64,111 +63,40 @@ class PreinscripcionController extends Controller
      */
     public function store(Request $request)
     {
+
         $data =request()->validate([
-            'matricula' => ['required','max:10','min:10','unique:alumnos'],
-            'nombres' => ['required','max:30'],
-            'apellidoP' => ['required','max:30'],
-            'apellidoM' => ['required','max:30'],
-            'foto' => ['max:10000','mimes:jpeg,png,jpg'],
-            'sexo' => ['required'],
-            'fechaNac' => ['required'],
-            'curp' => ['required','max:18','min:18'],
-            'calle' => ['required','max:30'],
-            'numero' => ['required','max:2'],
-            'colonia' => ['required','max:30'],
-            'codigoP' => ['required','max:5','min:5'],
-            'telefono' => ['required','min:10','max:10'],
-            'localidad' => ['required','max:30'],
-            'municipio' => ['required','max:30'],
-            'especialidad' => ['required'],
+            'alumnos_id' => ['required'],
             'copiaActa' => ['required'],
             'copiaCurp' => ['required'],
             'copiaVacuna' => ['required'],
             'constanciaKinder' => ['required'],
             'copiaIne' => ['required'],
-            'cicloescolar_id' => ['required'],
-            'tramite_id' => ['required'],
-            'padres_id' => ['required'],
-           
-
         ],[
 
-            
+            'alumnos_id.required' => 'El campo alumnos es obligatorio',
 
-            'matricula.required' => 'El campo matricula es obligatorio',
-            'matricula.min' => 'El campo matricula debe contener al menos 10 caracteres',
-            'matricula.max' => 'El campo matricula debe contener maximo 10 caracteres',
-            'matricula.unique' => 'La información ya ha sido registrada',
+            'copiaActa.required' => 'El campo acta es obligatorio',
+          
+            'copiaCurp.required' => 'El campo curp es obligatorio',
 
-            'nombres.required' => 'El campo nombres es obligatorio',
-            'nombres.max' => 'El campo nombres debe contener maximo 30 caracteres',
-
-            'apellidoP.required' => 'El campo apellido es obligatorio',
-            'apellidoP.max' => 'El campo apellido debe contener maximo 30 caracteres',
-
-            'apellidoM.required' => 'El campo apellido es obligatorio',
-            'apellidoM.max' => 'El campo apellido debe contener maximo 30 caracteres',
-
-            'sexo.required' => 'El campo sexo es obligatorio',
-
-            'fechaNac.required' => 'El campo fecha de nacimiento es obligatorio',
-
-            'curp.required' => 'El campo curp es obligatorio',
-            'curp.max' => 'El campo curp debe contener maximo 18 caracteres',
-            'curp.min' => 'El campo curp debe contener al menos 18 caracteres',
-
-            'calle.required' => 'El campo calle es obligatorio',
-
-            'numero.required' => 'El campo numero es obligatorio',
-            'numero.max' => 'El campo numero debe contener maximo 2 caracteres',
-
-            'colonia.required' => 'El campo colonia es obligatorio',
-            'colonia.max' => 'El campo colonia debe contener maximo 30 caracteres',
-            
-            'codigoP.required' => 'El campo código postal es obligatorio',
-            'codigoP.max' => 'El campo código postal debe contener maximo 5 caracteres',
-            'codigoP.min' => 'El campo código postal debe contener al menos 5 caracteres',
-
-            'telefono.required' => 'El campo teléfono es obligatorio',
-            'telefono.min' => 'El campo telefono debe contener al menos 10 caracteres',
-            'telefono.max' => 'El campo teléfono debe contener maximo 10 caracteres',
-
-            'localidad.required' => 'El campo localidad es obligatorio',
-            'localidad.max' => 'El campo localidad debe contener maximo 30 caracteres',
-
-            'municipio.required' => 'El campo municipio es obligatorio',
-            'municipio.max' => 'El campo municipio debe contener maximo 30 caracteres',
-
-            'especialidad.required' => 'El campo necesidades es obligatorio',
-            
-            'copiaActa.required' => 'El campo copia acta es obligatorio',
-
-            'copiaCurp.required' => 'El campo copia curp es obligatorio',
-
-            'copiaVacuna.required' => 'El campo copia vacuna es obligatorio',
+            'copiaVacuna.required' => 'El campo cartilla es obligatorio',
 
             'constanciaKinder.required' => 'El campo constancia es obligatorio',
 
-            'copiaIne.required' => 'El campo copia ine es obligatorio',
+            'copiaIne.required' => 'El campo Ine es obligatorio',
 
-            'cicloescolar_id.required' => 'El campo cicloescolar es obligatorio',
-
-            'tramite.required' => 'El campo tramite es obligatorio',
-           
         ]);
-        
-        $alumno = $request->all();
-       
-        if($foto =$request->file('foto')){
-            $rutaGuardarImg = 'foto/';
-            $imagenProducto = date('YmdHis'). "." . $foto->getClientOriginalExtension();
-            $foto->move($rutaGuardarImg, $imagenProducto);
-            $alumno['foto'] = "$imagenProducto";
-            
-        }
 
-        Alumno::create($alumno);    
-        return redirect()->route('preinscripcion.index')->with('Agregar', 'ok');
+        $proceso = new Proceso();
+        $proceso->copiaActa=$request->copiaActa;
+        $proceso->copiaCurp=$request->copiaCurp;
+        $proceso->copiaVacuna=$request->copiaVacuna;
+        $proceso->constanciaKinder=$request->constanciaKinder;
+        $proceso->cicloescolar_id=$request->cicloescolar_id;
+        $proceso->tramite_id=$request->tramite_id;
+        $proceso->alumnos_id=$request->alumnos_id;
+        $proceso->save();
+        return redirect()->route('preinscripcion.index')->with('Guardar', 'ok');
          
     }
 
@@ -181,8 +109,10 @@ class PreinscripcionController extends Controller
     public function show($id)
     {
         $padre = Padre::all();
-        $alumno = Alumno::find($id);
-        return view('preinscripcion.Perfilpre', ['alumno'=>$alumno,'padre'=>$padre]);
+        $ciclo = Cicloescolar::all();
+        $alumno = Alumno::all();
+        $proceso = Proceso::find($id);
+        return view('preinscripcion.Perfilpre', ['proceso'=>$proceso, 'alumno'=>$alumno, 'ciclo'=>$ciclo, 'padre'=>$padre]);
     }
 
     /**
@@ -191,12 +121,12 @@ class PreinscripcionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alumno $alumno)
+    public function edit(Proceso $proceso)
     {
         $ciclo = Cicloescolar::all();
-        $padre = Padre::orderBy('created_at','DESC')->get();
+        $alumno = Alumno::orderBy('created_at','DESC')->get();
         $tramite = Tramite::all();
-        return view('Preinscripcion.Editarpre', compact('alumno','ciclo','padre','tramite'));
+        return view('preinscripcion.Editarpre', compact('proceso','ciclo','alumno','tramite'));
 
     }
 
@@ -207,47 +137,38 @@ class PreinscripcionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request, Proceso $proceso)
     {
-        $this->validate(request(),[
-            'matricula' => ['required','max:10','min:10'],
-            'nombres' => ['required','max:30'],
-            'apellidoP' => ['required','max:30'],
-            'apellidoM' => ['required','max:30'],
-            'foto' => ['max:10000','mimes:jpeg,png,jpg'],
-            'sexo' => ['required'],
-            'fechaNac' => ['required'],
-            'curp' => ['required','max:18','min:18'],
-            'calle' => ['required','max:30'],
-            'numero' => ['required','max:2'],
-            'colonia' => ['required','max:30'],
-            'codigoP' => ['required','max:5','min:5'],
-            'telefono' => ['required','min:10','max:10'],
-            'localidad' => ['required','max:30'],
-            'municipio' => ['required','max:30'],
-            'especialidad' => ['required'],
+        $data =request()->validate([
+           
             'copiaActa' => ['required'],
             'copiaCurp' => ['required'],
             'copiaVacuna' => ['required'],
             'constanciaKinder' => ['required'],
             'copiaIne' => ['required'],
-            'cicloescolar_id' => ['required'],
-            'tramite_id' => ['required'],
-            'padres_id' => ['required'],
+        ],[
+
+            'copiaActa.required' => 'El campo acta es obligatorio',
+          
+            'copiaCurp.required' => 'El campo curp es obligatorio',
+
+            'copiaVacuna.required' => 'El campo cartilla es obligatorio',
+
+            'constanciaKinder.required' => 'El campo constancia es obligatorio',
+
+            'copiaIne.required' => 'El campo Ine es obligatorio',
 
         ]);
-       
-        $alum = $request->all();
+        $proceso->copiaActa=$request->copiaActa;
+        $proceso->copiaCurp=$request->copiaCurp;
+        $proceso->copiaVacuna=$request->copiaVacuna;
+        $proceso->constanciaKinder=$request->constanciaKinder;
+        $proceso->cicloescolar_id=$request->cicloescolar_id;
 
-        if($foto =$request->file('foto')){
-            $rutaGuardarImg = 'foto/';
-            $imagenProducto = date('YmdHis'). "." . $foto->getClientOriginalExtension();
-            $foto->move($rutaGuardarImg, $imagenProducto);
-            $alum['foto'] = "$imagenProducto";
-        }else{
-            unset($alum['foto']);
-        }
-        $alumno->update($alum);
+        $proceso->cicloescolar_id=$request->cicloescolar_id;
+        $proceso->tramite_id=$request->tramite_id;
+        $proceso->alumnos_id=$request->alumnos_id;
+        $proceso->save();
         return redirect()->route('preinscripcion.index')->with('Editar', 'ok');
     }
 
@@ -265,8 +186,9 @@ class PreinscripcionController extends Controller
     public function pdf($id)
     {
         $padre = Padre::all();
-        $alumno = Alumno::find($id);
-        $pdf = pdf::loadView('preinscripcion.Pdfpre', compact('alumno','padre'));
+        $alumno = Alumno::all();
+        $proceso = Proceso::find($id);
+        $pdf = pdf::loadView('preinscripcion.Pdfpre', compact('proceso','alumno','padre'));
         return $pdf->stream();
     }
   

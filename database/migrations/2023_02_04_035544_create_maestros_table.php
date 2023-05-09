@@ -19,7 +19,7 @@ class CreateMaestrosTable extends Migration
             $table->string('nombres',50);
             $table->string('apellidoP',30);
             $table->string('apellidoM',30);
-            $table->string('edad',5);
+            $table->date('fechaNac');
             $table->string('telefono',10);
             $table->string('foto', 255)->nullable();
             $table->string('correo',50)->unique();

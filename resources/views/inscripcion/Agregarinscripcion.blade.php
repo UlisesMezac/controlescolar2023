@@ -23,20 +23,18 @@ Inscripción | Sistema escolar
 </section>
 
 
-
-
 <section class="content">
     <div class="row justify-content-center" >
         <div class="col-lg-10 mb-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3" style="background-color:#E30707">
-                    <h6 class="m-0 font-weight-bold text-light">Inscribir alumno</h6>
+                    <h6 class="m-0 font-weight-bold text-light">Preinscripción</h6>
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
-                        <form class="mt-4" method="POST" action="{{route('inscripcion.update',$alumno)}}" enctype="multipart/form-data">
+                        <form class="" method="POST" action="{{route('inscripcion.store',$proceso)}}" enctype="multipart/form-data">
                             @csrf
-                            @method('put')
+                            @method('put') 
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
                                     <div  data-target="">
@@ -48,13 +46,24 @@ Inscripción | Sistema escolar
                                     <div class="line"></div>
                                 </div>
                             </div>
+
                             <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="alumnos_id">Alumno</label>
+                                    <select name="alumnos_id" class="form-control @error('alumnos_id') is-invalid @enderror">
+                                        <option value="{{$proceso->alumno->id}}"> {{$proceso->alumno->nombres}} {{$proceso->alumno->apellidoP}} {{$proceso->alumno->apellidoM}}</option>
+                                    </select>
+                                        @error('tramite_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
                                 <div class="form-group col-md-4">
                                     <label for="tramite_id">Tramite</label>
                                     <select name="tramite_id" class="form-control @error('tramite_id') is-invalid @enderror">
-                                    
                                         @forelse ($tramite as $tramiteItem)
-                                            @if ($tramiteItem->id == 2)  
+                                            @if ($tramiteItem->id == 2)     
                                                 <option value="{{$tramiteItem->id}}">{{$tramiteItem->tramite}} </option>
                                             @endif         
                                         @endforeach
@@ -65,29 +74,14 @@ Inscripción | Sistema escolar
                                             </span>
                                         @enderror
                                 </div>
-                                <div class="form-group col-md-5">
-                                    <label for="padres_id">Elegir padre de familia o <a class="btn-link" data-toggle="modal" data-target="#modal-lg"> Agregar</a></label>
-                                    <select name="padres_id" class="form-control @error('padres_id') is-invalid @enderror">
-                                       
-                                        @forelse ($padre as $padreItem)
-                                            <option>{{$alumno->padre->nombresP}}</option>
-                                            <option value="{{$padreItem->id}}">{{$padreItem->nombresP}} </option>    
-                                        @endforeach
-                                    </select>
-                                        @error('padres_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-                                
-                                <div class="form-group col-md-3">
+
+                                <div class="form-group col-md-4">
                                     <label for="cicloescolar_id">Ciclo escolar:</label>
                                     <select name="cicloescolar_id" class="form-control @error('cicloescolar_id') is-invalid @enderror">
                                         @forelse ($ciclo as $cicloItem)
-                                            @if ($cicloItem->status == 1) 
-                                                <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>  
-                                            @endif     
+                                            @if ($cicloItem->status == 1)  
+                                                <option value="{{$cicloItem->id}}">{{$cicloItem->nombre}} </option>
+                                            @endif 
                                         @endforeach
                                     </select>
                                         @error('cicloescolar_id')
@@ -96,99 +90,48 @@ Inscripción | Sistema escolar
                                             </span>
                                         @enderror
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1" class="form-label">Nombre(s):</label>
-                                    <input type="text" class="form-control @error('nombres') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="nombres"  aria-describedby="emailHelp" value="{{$alumno->nombres}}">
-                                    @error('nombres')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Primer apellido:</label>
-                                    <input type="text" class="form-control @error('apellidoP') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="apellidoP"  aria-describedby="emailHelp" value="{{$alumno->apellidoP}}"> 
-                                    @error('apellidoP')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1" class="form-label">Segundo apellido:</label>
-                                    <input type="text" class="form-control @error('apellidoM') is-invalid @enderror"  
-                                    id="exampleInputEmail1" name="apellidoM"  aria-describedby="emailHelp" value="{{$alumno->apellidoM}}">
-                                    @error('apellidoM')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror    
-                                </div>
-                            </div>
-        
-                            <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1" class="form-label">CURP:</label>
-                                    <input type="text" class="form-control form-control-user @error('curp') is-invalid @enderror" 
-                                    style="text-transform:uppercase;" onblur="upperCase()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                    id="" name="curp"  value="{{$alumno->curp}}">
-                                        @error('curp')
+                                    <label for="grupos_id">Grupo:</label>
+                                    <select name="grupos_id" class="form-control @error('grupos_id') is-invalid @enderror">
+                                        @forelse ($grupo as $grupoItem)
+                                            @if ($grupoItem->nombre == 1 && $grupoItem->procesos->count() < $grupoItem->capacidad && $grupoItem->status == 1)
+                                                <option value="{{$grupoItem->id}}">{{$grupoItem->nombre}} </option>   
+                                            @endif 
+                                        @endforeach
+                                    </select>
+                                        @error('grupos_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror             
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1" class="form-label">Matricula</label>
-                                    <input type="number" class="form-control @error('matricula') is-invalid @enderror" 
-                                    id="exampleInputEmail1" name="matricula"  aria-describedby="emailHelp" value="{{$alumno->matricula}}">
-                                    @error('matricula')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="start">Fecha de nacimiento:</label>
-                                    <input type="date" id="fechaNac" name="fechaNac" class="form-control @error('fechaNac') is-invalid @enderror"
-                                    value="{{$alumno->fechaNac}}" min="2010-01-01" max="2050-12-31">
-                                        @error('fechaNac')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror 
-                                </div>
-
-                            </div>
-
-                            <div class="bs-stepper">
-                                <div class="bs-stepper-header" role="tablist">
-                                    <div  data-target="">
-                                        <div class="step-trigger" >
-                                            <span class="bs-stepper-circle" style=" background-color:#E30707">1</span>
-                                            <span class="bs-stepper-label">DOCUMENTOS</span>
-                                        </div>
-                                    </div>
-                                    <div class="line"></div>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                             
+                                <label for="">
+                                    Documentos:
+                                </label>
+
                                 <div class="icheck-danger">
                                     <input class="form-check-input @error('acta') is-invalid @enderror" type="checkbox" value="Si {{ old('acta') == 'Si' ? 'checked' : ''}}" 
                                     name="acta" id="actaSi">
                                     <label class="form-check-label" for="actaSi">
-                                        Acta de nacimiento orginal
+                                        Acta de nacimiento
                                     </label>
                                         @error('acta')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror 
+                                </div>
+
+                                <div class="icheck-danger">
+                                    <input class="form-check-input @error('curp') is-invalid @enderror" type="checkbox" value="Si {{ old('curp') == 'Si' ? 'checked' : ''}}" 
+                                    name="curp" id="curpSi">
+                                    <label class="form-check-label" for="curpSi">
+                                        Curp
+                                    </label>
+                                        @error('curp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -207,36 +150,8 @@ Inscripción | Sistema escolar
                                             </span>
                                         @enderror 
                                 </div>
-                            </div>
 
-                            <div class="bs-stepper">
-                                <div class="bs-stepper-header" role="tablist">
-                                    <div  data-target="">
-                                        <div  class="step-trigger" >
-                                            <span class="bs-stepper-circle" style=" background-color:#E30707">2</span>
-                                            <span class="bs-stepper-label">ASIGNAR GRUPO</span>
-                                    </div>
-                                    </div>
-                                    <div class="line"></div>
-                                </div>
                             </div>
-
-                            <div class="form-group col-md-3">
-                                    <label for="grupos_id">Grupos:</label>
-                                    <select name="grupos_id" class="form-control @error('grupos_id') is-invalid @enderror">
-                                        @forelse ($grupo as $grupoItem)
-                                            @if ($grupoItem->nombre == 1) 
-                                                <option value="{{$grupoItem->id}}">{{$grupoItem->nombre}} </option>  
-                                            @endif     
-                                        @endforeach
-                                    </select>
-                                        @error('grupos_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                            </div>
-                           
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-outline-success">{{ __('Registrar') }}</button>
@@ -247,6 +162,8 @@ Inscripción | Sistema escolar
                                     </a>
                                 </div>
                             </div>
+
+
                         </form>
                     </div>
                 </div>

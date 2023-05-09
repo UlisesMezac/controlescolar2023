@@ -8,6 +8,7 @@ use App\Models\Cicloescolar;
 use App\Models\Maestro;
 use App\Models\Alumno;
 use App\Models\Padre;
+use App\Models\Proceso;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 class GruposController extends Controller
@@ -100,23 +101,25 @@ class GruposController extends Controller
      */
     public function show($id)
     {
+        $proceso = Proceso::all();
         $alumno = Alumno::all();
         $ciclo = Cicloescolar::all();
         $maestro = Maestro::all();
         $grupo = Grupo::find($id);
      
-        return view('grupos.Perfilgrupo', ['grupo'=>$grupo, 'alumno'=>$alumno, 'ciclo'=>$ciclo, 'maestro'=>$maestro]);
+        return view('grupos.Perfilgrupo', ['grupo'=>$grupo, 'alumno'=>$alumno, 'ciclo'=>$ciclo, 'maestro'=>$maestro, 'proceso'=>$proceso]);
     }
 
     public function perfil($id)
     {
-        $alumno = Alumno::find($id);
+        $alumno = Alumno::all();
         $ciclo = Cicloescolar::all();
         $maestro = Maestro::all();
         $grupo = Grupo::all();
         $padre = Padre::all();
+        $proceso = Proceso::find($id);
      
-        return view('alumnos.Perfilalumno', ['grupo'=>$grupo, 'alumno'=>$alumno, 'ciclo'=>$ciclo, 'maestro'=>$maestro, 'padre'=>$padre]);
+        return view('alumnos.Perfilalumno', ['grupo'=>$grupo, 'alumno'=>$alumno, 'ciclo'=>$ciclo, 'maestro'=>$maestro, 'padre'=>$padre, 'proceso'=>$proceso]);
     }
     
 
@@ -188,9 +191,10 @@ class GruposController extends Controller
         $alumno = Alumno::all();
         $ciclo = Cicloescolar::all();
         $maestro = Maestro::all();
+        $proceso = Proceso::all();
         $grupo = Grupo::find($id);
 
-        $pdf = pdf::loadView('grupos.Pdfgrupo', compact('grupo','maestro','ciclo','alumno'));
+        $pdf = pdf::loadView('grupos.Pdfgrupo', compact('grupo','maestro','ciclo','alumno','proceso'));
         return $pdf->stream();
     }
 
@@ -200,9 +204,10 @@ class GruposController extends Controller
         $ciclo = Cicloescolar::all();
         $maestro = Maestro::all();
         $grupo = Grupo::all();
-        $alumno = Alumno::find($id);
+        $alumno = Alumno::all();
+        $proceso = Proceso::find($id);
 
-        $pdf = pdf::loadView('alumnos.Credencial', compact('grupo','maestro','ciclo','alumno'));
+        $pdf = pdf::loadView('alumnos.Credencial', compact('grupo','maestro','ciclo','alumno','proceso'));
         return $pdf->stream();
     }
 

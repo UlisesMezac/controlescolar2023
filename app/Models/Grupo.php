@@ -24,9 +24,9 @@ class Grupo extends Model
     return $this->belongsTo(Maestro::class, 'maestros_id');
    }
 
-
-    public function alumnos(){
-          return $this->hasMany(Alumno::class, 'grupos_id');
+   
+    public function procesos(){
+          return $this->hasMany(Proceso::class, 'grupos_id');
       }
 
 

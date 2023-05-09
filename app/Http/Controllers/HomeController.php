@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use App\Models\Proceso;
+use App\Models\Alumno;
+use App\Models\Grupo;
+
 
 class HomeController extends Controller
 {
@@ -22,12 +26,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-   
-
-
     public function index()
     {
-        return view('home');
+        $alumno = Alumno::all();
+        $grupo = Grupo::all();
+        $proceso = Proceso::orderBy('created_at','DESC')->get();
+        return view('home', compact('alumno','proceso','grupo'));
     }
 
     public function store(Request $request)

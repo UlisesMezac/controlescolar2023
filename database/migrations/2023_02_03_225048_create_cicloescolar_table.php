@@ -19,6 +19,7 @@ class CreateCicloescolarTable extends Migration
             $table->date('fechaIni')->nullable();
             $table->date('fechaFin')->nullable();
             $table->string('status',30);
+            $table->string('capacidad')->nullable();
             $table->timestamps();
         });
     }

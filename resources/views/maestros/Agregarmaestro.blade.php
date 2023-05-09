@@ -66,7 +66,7 @@ Maestros | Sistema escolar
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="exampleInputEmail1" class="form-label">Matricula:</label>
                                         <input type="number" class="form-control form-control-user @error('matricula') is-invalid @enderror"
                                         id="exampleInputEmail" name="matricula"  value="{{old('matricula')}}">
@@ -76,15 +76,15 @@ Maestros | Sistema escolar
                                                 </span>
                                             @enderror
                                     </div>
-                                    <div class="form-group col-md-3">
-                                            <label for="exampleInputEmail1" class="form-label">Edad:</label>
-                                            <input type="number"  class="form-control form-control-user @error('edad') is-invalid @enderror"
-                                            id="exampleInputEmail" name="edad"  value="{{old('edad')}}">
-                                                    @error('edad')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
+                                    <div class="form-group col-md-4">
+                                        <label for="start">Fecha de nacimiento:</label>
+                                        <input type="date" id="fechaNac" name="fechaNac" class="form-control @error('fechaNac') is-invalid @enderror"
+                                        value="{{ old('fechaNac') }}" min="1970-01-01" max="2000-12-31">
+                                            @error('fechaNac')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror 
                                     </div>
 
                                     <div class="form-group col-md-5">

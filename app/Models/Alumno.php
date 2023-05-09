@@ -30,23 +30,9 @@ class Alumno extends Model
         'municipio',
         'especialidad',
         'otraEsp',
-        'copiaActa',
-        'copiaCurp',
-        'copiaVacuna',
-        'constanciaKinder',
-        'copiaIne',
-        'acta',
-        'certificadoKinder',
-        'escuelaProcedencia',
-        'boletaAnterior',
-        'constanciaPrimaria',
-        'cicloescolar_id',
-        'tramite_id',
+      
         'padres_id',
-        'grupos_id',
      ];
-
-    public $timestamps = false;
 
     public function ciclo(){
         return $this->belongsTo(Cicloescolar::class, 'cicloescolar_id');

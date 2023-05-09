@@ -39,18 +39,6 @@ class CreatePadresTable extends Migration
             $table->string('escolaridadM',30)->nullable();
             $table->string('noHijosM',2)->nullable();
 
-            //////DOCUMENTACIÓN TUTOR/////////
-            $table->string('nombresT',30);
-            $table->string('apellido1T',20);
-            $table->string('apellido2T',20);
-            $table->string('edadT',2)->nullable();
-            $table->date('fechaNacT')->nullable();
-            $table->string('curpT',18)->nullable();
-            $table->char('viveT',2)->comment('Si = Si, No = No')->nullable();
-            $table->char('leeYescribeT',2)->comment('Si = Si, No = No')->nullable();
-            $table->string('escolaridadT',30)->nullable();
-            $table->string('noHijosT',2)->nullable();
-
 
             //////DOCUMENTACIÓN TUTOR/////////
             $table->string('calle',30)->nullable();

@@ -38,6 +38,7 @@ Inscripción | Sistema escolar
                 </form>
                 <div class="table-responsive my-3">
                     <br>
+
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
@@ -48,24 +49,25 @@ Inscripción | Sistema escolar
                                 <th style="width: 60px ">Acción</th>
                             </tr>
                         </thead>
-                        @forelse ($alumno as $alumnoItem)
+                        @forelse ($proceso as $procesoItem)
                             <tbody>
                                 <tr>
-                                    <td>{{$alumnoItem->id}}</td>
-                                    <td>{{$alumnoItem->matricula}}</td>
-                                    <td >{{$alumnoItem->curp}}</td>
-                                    <td>{{$alumnoItem->nombres}} {{$alumnoItem->apellidoP}} {{$alumnoItem->apellidoM}}</td>
+                                    <td>{{$procesoItem->id}}</td>
+                                    <td>{{$procesoItem->alumno->matricula}}</td>
+                                    <td>{{$procesoItem->alumno->curp}}</td>
+                                    <td>{{$procesoItem->alumno->nombres}} {{$procesoItem->alumno->apellidoP}} {{$procesoItem->alumno->apellidoM}} </td>
                                     <td>
-                                  @if ($alumnoItem->tramite_id == 1)
-                                    <a href="{{route('inscripcion.create',$alumnoItem)}}">
-                                        <button type="button" class="btn btn-sm btn-warning">Inscribir <i class="fas fa-angle-right"></i></button>
-                                    </a>
-                                    @else
-                                    <a href="">
-                                        <button type="button" class="btn btn-sm btn-success">Inscrito </button>
-                                    </a>
-                                  @endif
+                                    @if ($procesoItem->tramite_id == 1)
+                                        <a href="{{route('inscripcion.create',$procesoItem)}}">
+                                            <button type="button" class="btn btn-sm btn-warning">Inscribir <i class="fas fa-angle-right"></i></button>
+                                        </a>
+                                        @else
+                                        <a href="{{ route('grupo.perfil', ['id' => $procesoItem->id]) }}">
+                                            <button type="button" class="btn btn-sm btn-success">Inscrito </button>
+                                        </a>
+                                    @endif
                                     </td>
+                                   
                                 </tr>
                             </tbody>
                             @empty
@@ -92,4 +94,62 @@ Inscripción | Sistema escolar
     </div>
 </section>
 
+@endsection
+
+@section('js')
+<!--link de modal --->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('Editar') == 'ok')
+    <script>
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Su archivo ha sido actualizado con exito',
+        showConfirmButton: false,
+        timer: 1500
+        })
+       </script> 
+    @endif
+    @if (session('Agregar') == 'ok')
+        <script>
+       Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Su archivo ha sido registrado con exito',
+        showConfirmButton: false,
+        timer: 1500
+        })
+       </script>
+    @endif
+
+    
+
+    @if (session('Eliminar') == 'ok')
+       <script>
+        Swal.fire(
+      'Eliminado!',
+      'Su archivo ha sido eliminado.',
+      'success'
+    )
+       </script> 
+    @endif
+<script>
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+        
+        Swal.fire({
+        title: '¿Desea eliminar ?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+           this.submit();
+        }
+        })
+    });
+   </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Models\Cicloescolar;
 use App\Models\Grupo;
 
 
+
 class CicloescolarController extends Controller
 {
     /**
@@ -59,6 +60,7 @@ class CicloescolarController extends Controller
             'fechaIni' => ['required'],
             'fechaFin' => ['required'],
             'status' => ['required'],
+            'capacidad' => ['required','min:2','max:3'],
         ],[
 
             'nombre.required' => 'El campo nombre es obligatorio',
@@ -70,6 +72,11 @@ class CicloescolarController extends Controller
 
             'status.required' => 'El campo status es obligatorio',
 
+            'capacidad.required' => 'El campo capacidad es obligatorio',
+
+            'capacidad.max' => 'El campo capacidad debe contener maximo 3 caracteres',
+            'capacidad.min' => 'El campo capacidad debe contener minimo 2 caracteres',
+
         ]);
 
         $ciclo = new Cicloescolar();
@@ -77,6 +84,7 @@ class CicloescolarController extends Controller
         $ciclo->fechaIni = $request->fechaIni;
         $ciclo->fechaFin = $request->fechaFin;
         $ciclo->status = $request->status;
+        $ciclo->capacidad = $request->capacidad;
         $ciclo->save();
               
             return redirect()->route('cicloescolar.index')->with('Agregar', 'ok');
@@ -118,7 +126,8 @@ class CicloescolarController extends Controller
         $ciclo->nombre=$request->nombre;
         $ciclo->fechaIni=$request->fechaIni;
         $ciclo->fechaFin=$request->fechaFin;
-        $ciclo->status=$request->status;
+        $ciclo->status = $request->status;
+        $ciclo->capacidad = $request->capacidad;
         $ciclo->save();
         return redirect()->route('cicloescolar.index')->with('Editar', 'ok');
     }

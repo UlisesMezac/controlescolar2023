@@ -13,7 +13,7 @@ class Maestro extends Model
    protected $table="maestros";
    protected $primaryKey="id";
    protected $fillable = [
-       'matricula', 'nombres', 'apellidoP', 'apellidoM', 'edad', 'telefono', 'foto','correo','status',
+       'matricula', 'nombres', 'apellidoP', 'apellidoM', 'fechaNac', 'telefono', 'foto','correo','status',
        'especialidad','curp','domicilio'
    ];
 

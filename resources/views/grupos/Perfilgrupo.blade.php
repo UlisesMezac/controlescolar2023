@@ -46,8 +46,12 @@ Grados y grupos | Sistema escolar
                         </form>
                     </div>
                 </div>
+                @if ($grupo->procesos->count() == $grupo->capacidad)
+                    <h6 class="m-0 font-weight-bold text-danger">¡Espacio insuficiente!</h6>
+                @else
+                    <h6 class="m-0 font-weight-bold text-success">¡Hay espacio suficiente!</h6>
+                @endif
                 
-               
                 <div class="table-responsive my-3">
                     <table class="table table-bordered" id="dataTable"  cellspacing="0">
                         <thead>
@@ -60,14 +64,14 @@ Grados y grupos | Sistema escolar
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($grupo->alumnos->count() > 0)
-                                @foreach ($grupo->alumnos as $alumno )
+                            @if ($grupo->procesos->count() > 0)
+                                @foreach ($grupo->procesos as $proceso )
                                     <tr>
-                                        <td> <a href="{{ route('grupo.perfil', ['id' => $alumno->id]) }}"> {{$alumno->matricula}}</a> </td>
-                                        <td>{{$alumno->curp}} </td>
-                                        <td>{{$alumno->apellidoP}}</td>
-                                        <td>{{$alumno->apellidoM}}</td>
-                                        <td>{{$alumno->nombres}}</td>
+                                        <td> <a href="{{ route('grupo.perfil', ['id' => $proceso->id]) }}"> {{$proceso->alumno->matricula}}</a> </td>
+                                        <td>{{$proceso->alumno->curp}} </td>
+                                        <td>{{$proceso->alumno->apellidoP}}</td>
+                                        <td>{{$proceso->alumno->apellidoM}}</td>
+                                        <td>{{$proceso->alumno->nombres}}</td>
                                     </tr>      
                                 @endforeach
                             @endif

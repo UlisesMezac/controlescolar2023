@@ -34,14 +34,14 @@
             <tbody>
                 
             
-            @if ($grupo->alumnos->count() > 0)
-                                @foreach ($grupo->alumnos as $alumno )
+            @if ($grupo->procesos->count() > 0)
+                                @foreach ($grupo->procesos as $proceso )
                                     <tr>
-                                        <td>  {{$alumno->matricula}}</td>
-                                        <td>{{$alumno->curp}} </td>
-                                        <td>{{$alumno->apellidoP}}</td>
-                                        <td>{{$alumno->apellidoM}}</td>
-                                        <td>{{$alumno->nombres}}</td>
+                                        <td>  {{$proceso->alumno->matricula}}</td>
+                                        <td>{{$proceso->alumno->curp}} </td>
+                                        <td>{{$proceso->alumno->apellidoP}}</td>
+                                        <td>{{$proceso->alumno->apellidoM}}</td>
+                                        <td>{{$proceso->alumno->nombres}}</td>
                                     </tr>      
                                 @endforeach
                             @endif

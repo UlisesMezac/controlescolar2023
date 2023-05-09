@@ -12,13 +12,16 @@ class Cicloescolar extends Model
     protected $table="cicloescolar";
     protected $primaryKey="id";
     protected $fillable = [
-        'nombre', 'fechaIni', 'fechaFin','status'
-    ];
+        'nombre', 'fechaIni', 'fechaFin','status','capacidad'];
 
     public $timestamps = false;
 
     public function grupo(){
         return $this->hasMany(Grupo::class, 'id');
+    }
+
+    public function procesos(){
+        return $this->hasMany(Proceso::class, 'id');
     }
 
    

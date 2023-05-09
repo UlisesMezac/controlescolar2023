@@ -34,7 +34,7 @@ Periodo escolar | Sistema escolar
                         <form class="mt-4" method="POST" action="{{route('cicloescolar.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-5">
                                     <label for="exampleInputEmail1" class="form-label">Ciclo escolar:</label>
                                     <input type="text" class="form-control @error('nombre') is-invalid @enderror"  
                                     id="exampleInputEmail1" name="nombre"  aria-describedby="emailHelp" value="{{ old('nombre') }}"
@@ -46,7 +46,7 @@ Periodo escolar | Sistema escolar
                                         @enderror
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label for="inputState">Estado:</label>
                                     <select name="status" class="form-control @error('status') is-invalid @enderror">
                                         <option value="1">Activo</option>
@@ -58,11 +58,22 @@ Periodo escolar | Sistema escolar
                                             </span>
                                         @enderror
                                 </div>
+                                <div class="form-group col-md-3">
+                                        <label for="exampleInputEmail1" class="form-label">Capacidad:</label>
+                                        <input type="number" class="form-control form-control-user @error('capacidad') is-invalid @enderror"
+                                        id="exampleInputEmail" name="capacidad" value="{{ old('capacidad') }}">
+
+                                                @error('capacidad')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                    </div>
                             </div>
                             <div class="mb-4">
                                     <label for="start">Fecha de inicio:</label>
                                     <input type="date" id="fechaIni" name="fechaIni"  class="form-control @error('fechaIni') is-invalid @enderror"
-                                    value="{{ old('fechaIni') }}" min="2010-01-01" max="2050-12-31">
+                                    value="{{ old('fechaIni') }}" min="2023-01-01" max="20250-12-31">
                                         @error('fechaIni')
                                             <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -72,7 +83,7 @@ Periodo escolar | Sistema escolar
                             <div class="mb-4">
                                         <label for="start">Fecha de fin:</label>
                                         <input type="date" id="fechaFin" name="fechaFin"  class="form-control @error('fechaFin') is-invalid @enderror"
-                                        value="{{ old('fechaFin') }}" min="2010-01-01" max="2050-12-31">
+                                        value="{{ old('fechaFin') }}" min="2024-01-01" max="2050-12-31">
                                             @error('fechaFin')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

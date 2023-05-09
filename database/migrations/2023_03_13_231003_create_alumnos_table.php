@@ -43,47 +43,15 @@ class CreateAlumnosTable extends Migration
             $table->string('otraEsp')->nullable();
           
 
-             //////DOCUMENTACIÓN PARA LA PREINSCRIPCIÓN/////////
-            $table->char('copiaActa',2)->comment('Si = Si')->nullable();
-            $table->char('copiaCurp',2)->comment('Si = Si')->nullable();
-            $table->char('copiaVacuna',2)->comment('Si = Si')->nullable();
-            $table->char('constanciaKinder',2)->comment('Si = Si')->nullable();
-            $table->char('copiaIne',2)->comment('Si = Si')->nullable();
-
-             //////DOCUMENTACIÓN PARA LA INSCRIPCIÓN/////////
-            $table->char('acta',2)->comment('Si = Si')->nullable();
-            $table->char('certificadoKinder',2)->comment('Si = Si')->nullable();
-
-            //////DOCUMENTACIÓN PARA TRASLADO/////////
-            $table->string('escuelaProcedencia',30)->nullable();
-            $table->char('boletaAnterior',2)->comment('Si = Si')->nullable();
-            $table->char('constanciaPrimaria',2)->comment('Si = Si')->nullable();
 
             //////LLAVES FORANEAS/////////
-            $table->foreignId('cicloescolar_id')
-                  ->nullable()
-                  ->constrained('cicloescolar')
-                  ->cascadeUpdate()
-                  ->nullOnDelete();
-
-            $table->foreignId('tramite_id')
-                  ->nullable()
-                  ->constrained('tramite')
-                  ->cascadeUpdate()
-                  ->nullOnDelete();
                   
             $table->foreignId('padres_id')
                   ->nullable()
                   ->constrained('padres')
                   ->cascadeUpdate()
                   ->nullOnDelete();
-
-            $table->foreignId('grupos_id')
-                  ->nullable()
-                  ->constrained('grupos')
-                  ->cascadeUpdate()
-                  ->nullOnDelete();
-                             
+                 
             $table->timestamps();
         });
     }

@@ -64,7 +64,7 @@ class MaestrosController extends Controller
             'nombres' => ['required','max:30'],
             'apellidoP' => ['required','max:30'],
             'apellidoM' => ['required','max:30'],
-            'edad' => ['required','min:2','max:2'],
+            'fechaNac' => ['required'],
             'telefono' => ['required','min:10','max:10'],
             'foto' => ['required','max:10000','mimes:jpeg,png,jpg'],
             'correo' => ['required','max:50','unique:maestros'],
@@ -87,9 +87,7 @@ class MaestrosController extends Controller
             'apellidoM.required' => 'El campo apellido es obligatorio',
             'apellidoM.max' => 'El apellido debe contener maximo 30 caracteres',
             
-            'edad.required' => 'El campo edad es obligatorio',
-            'edad.min' => 'El campo edad debe contener al menos 2 caracteres',
-            'edad.max' => 'el campo edad debe contener maximo 2 caracteres',
+            'fechaNac.required' => 'El campo fecha es obligatorio',
 
             'telefono.required' => 'El campo teléfono es obligatorio',
             'telefono.min' => 'El campo telefono debe contener al menos 10 caracteres',
@@ -165,7 +163,7 @@ class MaestrosController extends Controller
             'nombres' => ['required','max:30'],
             'apellidoP' => ['required','max:30'],
             'apellidoM' => ['required','max:30'],
-            'edad' => ['required','max:2'],
+            'fechaNac' => ['required'],
             'telefono' => ['required','max:10'],
             'correo' => ['required','max:50'],
             'status' => ['required'],

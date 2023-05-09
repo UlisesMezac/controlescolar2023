@@ -14,10 +14,10 @@
                         
                                 <tr>
                                  
-                                    {{$alumno->id}}</td>
-                                    <td>{{$alumno->matricula}}</td>
-                                    <td >{{$alumno->curp}}</td>
-                                    <td>{{$alumno->nombres}} {{$alumno->apellidoP}} {{$alumno->apellidoM}} {{$alumno->padre->nombresP}}</td>
+                                    <td>{{$proceso->alumno->id}}</td>
+                                    <td>{{$proceso->alumno->matricula}}</td>
+                                    <td >{{$proceso->alumno->curp}}</td>
+                                    <td>{{$proceso->alumno->nombres}} {{$proceso->alumno->apellidoP}} {{$proceso->alumno->apellidoM}} {{$proceso->alumno->padre->nombresP}}</td>
                                         
 
 

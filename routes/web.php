@@ -12,6 +12,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\TrasladoController;
+use App\Http\Controllers\ReinscripcionController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -91,9 +92,9 @@ Route::post('/Agregarpre',[PreinscripcionController::class,'store'])->name('prei
 
 Route::get('/Indexpre',[PreinscripcionController::class,'index'])->name('preinscripcion.index')->middleware('auth');
 
-Route::get('/Editarpre.{alumno}',[PreinscripcionController::class,'edit'])->name('preinscripcion.edit')->middleware('auth');
+Route::get('/Editarpre.{proceso}',[PreinscripcionController::class,'edit'])->name('preinscripcion.edit')->middleware('auth');
 
-Route::put('/Editarpre.{alumno}',[PreinscripcionController::class,'update'])->name('preinscripcion.update')->middleware('auth');
+Route::put('/Editarpre.{proceso}',[PreinscripcionController::class,'update'])->name('preinscripcion.update')->middleware('auth');
 
 Route::get('/Perfilpre.{id}',[PreinscripcionController::class,'show'])->name('preinscripcion.show')->middleware('auth');
 
@@ -117,18 +118,44 @@ Route::put('/Editarpadre.{padre}',[PadresController::class,'update'])->name('pad
 ////CRUD DE INSCRIPCIÓN////
 Route::get('/Indexinscripcion',[InscripcionController::class,'index'])->name('inscripcion.index')->middleware('auth');
 
-Route::get('/Agregarinscripcion.{alumno}',[InscripcionController::class,'create'])->name('inscripcion.create')->middleware('auth');
+Route::get('/Procesoindex',[InscripcionController::class,'procesoindex'])->name('inscripcion.procesoindex')->middleware('auth');
 
-Route::put('/Agregarinscripcion.{alumno}',[InscripcionController::class,'update'])->name('inscripcion.update')->middleware('auth');
+Route::get('/Agregarinscripcion.{proceso}',[InscripcionController::class,'create'])->name('inscripcion.create')->middleware('auth');
+
+Route::put('/Agregarinscripcion.{proceso}',[InscripcionController::class,'store'])->name('inscripcion.store')->middleware('auth');
 
 
 ////CRUD DE ALUMNOS////
+Route::get('/Agregaralumno',[AlumnosController::class,'create'])->name('alumno.create')->middleware('auth');
+
+Route::post('/Agregaralumno',[AlumnosController::class,'store'])->name('alumno.store')->middleware('auth');
+
 Route::get('/Editaralumno.{alumno}',[AlumnosController::class,'edit'])->name('alumno.edit')->middleware('auth');
 
 Route::put('/Editaralumno.{alumno}',[AlumnosController::class,'update'])->name('alumno.update')->middleware('auth');
 
+Route::get('/Calificacion.{proceso}',[AlumnosController::class,'calificacion'])->name('alumno.calificacion')->middleware('auth');
 
-////CRUD DE ALUMNOS////
-Route::get('/Agregartras',[TrasladoController::class,'create'])->name('traslado.create')->middleware('auth');
+Route::put('/Calificacion.{proceso}',[AlumnosController::class,'GuardarCali'])->name('alumno.guardar')->middleware('auth');
 
-Route::post('/Agregartras',[TrasladoController::class,'store'])->name('traslado.store')->middleware('auth');
+////CRUD DE TRASLADO////
+Route::get('/Agregartras',[AlumnosController::class,'createTraslado'])->name('alumno.createTraaslado')->middleware('auth');
+
+Route::post('/Agregartras',[AlumnosController::class,'storeTraslado'])->name('alumno.storeTraslado')->middleware('auth');
+
+Route::post('/Agregartras.padre',[PadresController::class,'storeTraslado'])->name('padre.storeTraslado')->middleware('auth');
+
+Route::get('/Procesotraslado',[TrasladoController::class,'create'])->name('traslado.create')->middleware('auth');
+
+Route::post('/Procesotraslado',[TrasladoController::class,'store'])->name('traslado.store')->middleware('auth');
+
+
+////CRUD DE REINSCRIPCIÓN////
+Route::get('/Agregarreins.{proceso}',[ReinscripcionController::class,'create'])->name('reins.create')->middleware('auth');
+
+Route::get('/Indexreins',[ReinscripcionController::class,'index'])->name('reins.index')->middleware('auth');
+
+Route::get('/Perfilreins.{id}',[ReinscripcionController::class,'show'])->name('reins.show')->middleware('auth');
+
+Route::put('/Agregarreins.{proceso}',[ReinscripcionController::class,'store'])->name('reins.store')->middleware('auth');
+

@@ -1,7 +1,7 @@
 @extends('menutema')
 
 @section('titulo')
-Alumno | Sistema escolar
+Inscripción | Sistema escolar
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@ Alumno | Sistema escolar
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/Indexpre">Fichas de preinscripción</a></li>
-              <li class="breadcrumb-item active">Editar alumno</li>
+              <li class="breadcrumb-item active">Editar preinscripción</li>
             </ol>
           </div>
         </div>
@@ -31,7 +31,7 @@ Alumno | Sistema escolar
                 </div>
                 <div class="card-body">
                     <div class="container  border mt-2">
-                        <form class="mt-4" method="POST" action="" enctype="multipart/form-data">
+                        <form class="mt-4" method="POST" action="{{route('alumno.update',$alumno)}}" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="bs-stepper">
@@ -47,11 +47,10 @@ Alumno | Sistema escolar
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="padres_id">Padres de familia</label>
+                                    <label for="padres_id">Elegir padre de familia o <a class="btn-link" data-toggle="modal" data-target="#modal-lg"> Agregar</a></label>
                                     <select name="padres_id" class="form-control @error('padres_id') is-invalid @enderror">
-                                        <option>{{$alumno->padre->nombresP}} {{$alumno->padre->apellido1P}} {{$alumno->padre->apellido2P}}, {{$alumno->padre->nombresM}} {{$alumno->padre->apellido1M}} {{$alumno->padre->apellido2M}}</option>
                                         @forelse ($padre as $padreItem)
-                                            <option value="{{$padreItem->id}}">{{$padreItem->nombresP}} {{$padreItem->apellido1P}} {{$padreItem->apellido2P}},  {{$padreItem->nombresM}} {{$padreItem->apellido1M}} {{$padreItem->apellido2M}}   </option>    
+                                            <option value="{{$padreItem->id}}">{{$alumno->padre->nombresP}} {{$alumno->padre->apellido1P}} {{$alumno->padre->apellido2P}} {{$alumno->padre->nombresM}} {{$alumno->padre->apellido1M}} {{$alumno->padre->apellido2M}} </option>    
                                         @endforeach
                                     </select>
                                         @error('padres_id')
@@ -142,17 +141,19 @@ Alumno | Sistema escolar
                                     <br>
                                     <div class="form-check form-check-inline">
                                         <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror" 
-                                        name="sexo" id="sexoF" value="F {{ old('sexo') == 'F' ? 'checked' : ''}}"  value="{{$alumno->sexo}}">
-                                        <label for="sexoF" class="form-check-label">
-                                            Femenino:
+                                            name="sexo" id="sexoF" value="F {{ old('sexo') == 'F' ? 'checked' : ''}}"  value="{{$alumno->sexo}}">
+                                            <label for="sexoF" class="form-check-label">
+                                                Femenino:
                                         </label>
+
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
-                                        name="sexo" id="sexoM" value="M {{ old('sexo') == 'M' ? 'checked' : ''}}" value="{{$alumno->sexo}}">
-                                        <label for="sexoM" class="form-check-label">
-                                            Masculino:
-                                        </label>
+                                            <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
+                                                name="sexo" id="sexoM" value="M {{ old('sexo') == 'M' ? 'checked' : ''}}" value="{{$alumno->sexo}}">
+                                                <label for="sexoM" class="form-check-label">
+                                                    Masculino:
+                                            </label>
+                                           
                                         @error('sexo')
                                                 <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -234,35 +235,7 @@ Alumno | Sistema escolar
                                     id="exampleInputEmail1" name="otraEspe"  aria-describedby="emailHelp" value="{{$alumno->otraEspe}}">   
                                 </div>
                             </div>
-
-                            <div class="bs-stepper">
-                                <div class="bs-stepper-header" role="tablist">
-                                    <div  data-target="">
-                                        <div  class="step-trigger" >
-                                            <span class="bs-stepper-circle" style=" background-color:#E30707">2</span>
-                                            <span class="bs-stepper-label">MODIFICAR GRUPO</span>
-                                    </div>
-                                    </div>
-                                    <div class="line"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                    <label for="grupos_id">Grupos:</label>
-                                    <select name="grupos_id" class="form-control @error('grupos_id') is-invalid @enderror">
-                                        @forelse ($grupo as $grupoItem)
-                                            
-                                                <option value="{{$grupoItem->id}}">{{$grupoItem->nombre}} </option>  
-                                       
-                                        @endforeach
-                                    </select>
-                                        @error('grupos_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
+                            
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
                                     <div  data-target="">
@@ -382,7 +355,6 @@ Alumno | Sistema escolar
         </div>
     </div>
 </section>
-
 @endsection
 
 @section('js')

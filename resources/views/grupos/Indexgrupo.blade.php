@@ -63,9 +63,7 @@ Grados y grupos | Sistema escolar
                                     @else
                                     <h6 class="m-0 font-weight-bold text-danger"><i class="fas fa-times"></i> Inactivo</h6>
                                     @endif
-                                </td>
-                                
-                                
+                                </td>        
                                 <td>
                                     <form action="{{route('grupo.destroy',$grupoItem)}}" class="d-inline formulario-eliminar" method="POST">
                                         @csrf

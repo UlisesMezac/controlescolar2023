@@ -8,6 +8,7 @@ use App\Models\Cicloescolar;
 use App\Models\Tramite;
 use App\Models\Padre;
 use App\Models\Grupo;
+use App\Models\Proceso;
 
 class TrasladoController extends Controller
 {
@@ -21,141 +22,65 @@ class TrasladoController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+     public function create()
     {
-        $alumno = new Alumno();
+        $alumno = Alumno::latest('created_at')->get();
         $ciclo = Cicloescolar::all();
         $tramite = Tramite::all();
         $grupo = Grupo::all();
-        $padre = Padre::orderBy('created_at','DESC')->get();
-        return view('traslado.Agregartras',compact('alumno','ciclo','tramite','padre','grupo'));
+        return view('traslado.Procesotraslado',compact('alumno','ciclo','tramite','grupo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $data =request()->validate([
-            'matricula' => ['required','max:10','min:10','unique:alumnos'],
-            'nombres' => ['required','max:30'],
-            'apellidoP' => ['required','max:30'],
-            'apellidoM' => ['required','max:30'],
-            'foto' => ['max:10000','mimes:jpeg,png,jpg'],
-            'sexo' => ['required'],
-            'fechaNac' => ['required'],
-            'curp' => ['required','max:18','min:18'],
-            'calle' => ['required','max:30'],
-            'numero' => ['required','max:2'],
-            'colonia' => ['required','max:30'],
-            'codigoP' => ['required','max:5','min:5'],
-            'telefono' => ['required','min:10','max:10'],
-            'localidad' => ['required','max:30'],
-            'municipio' => ['required','max:30'],
-            'especialidad' => ['required'],
+           
             'acta' => ['required'],
+            'curp' => ['required'],
+            'copiaVacuna' => ['required'],
+            'copiaIne' => ['required'],
             'boletaAnterior' => ['required'],
             'constanciaPrimaria' => ['required'],
-            'escuelaProcedencia'=>['required'],
-            'cicloescolar_id' => ['required'],
-            'tramite_id' => ['required'],
-            'padres_id' => ['required'],
-           
-
+            'escuelaProcedencia' => ['required','max:30','min:5'],
         ],[
 
-            
-
-            'matricula.required' => 'El campo matricula es obligatorio',
-            'matricula.min' => 'El campo matricula debe contener al menos 10 caracteres',
-            'matricula.max' => 'El campo matricula debe contener maximo 10 caracteres',
-            'matricula.unique' => 'La información ya ha sido registrada',
-
-            'nombres.required' => 'El campo nombres es obligatorio',
-            'nombres.max' => 'El campo nombres debe contener maximo 30 caracteres',
-
-            'apellidoP.required' => 'El campo apellido es obligatorio',
-            'apellidoP.max' => 'El campo apellido debe contener maximo 30 caracteres',
-
-            'apellidoM.required' => 'El campo apellido es obligatorio',
-            'apellidoM.max' => 'El campo apellido debe contener maximo 30 caracteres',
-
-            'sexo.required' => 'El campo sexo es obligatorio',
-
-            'fechaNac.required' => 'El campo fecha de nacimiento es obligatorio',
-
+            'acta.required' => 'El campo acta es obligatorio',
+          
             'curp.required' => 'El campo curp es obligatorio',
-            'curp.max' => 'El campo curp debe contener maximo 18 caracteres',
-            'curp.min' => 'El campo curp debe contener al menos 18 caracteres',
 
-            'calle.required' => 'El campo calle es obligatorio',
+            'copiaVacuna.required' => 'El campo cartilla es obligatorio',
 
-            'numero.required' => 'El campo numero es obligatorio',
-            'numero.max' => 'El campo numero debe contener maximo 2 caracteres',
+            'copiaIne.required' => 'El campo INE es obligatorio',
 
-            'colonia.required' => 'El campo colonia es obligatorio',
-            'colonia.max' => 'El campo colonia debe contener maximo 30 caracteres',
-            
-            'codigoP.required' => 'El campo código postal es obligatorio',
-            'codigoP.max' => 'El campo código postal debe contener maximo 5 caracteres',
-            'codigoP.min' => 'El campo código postal debe contener al menos 5 caracteres',
+            'boletaAnterior.required' => 'El campo boleta es obligatorio',
 
-            'telefono.required' => 'El campo teléfono es obligatorio',
-            'telefono.min' => 'El campo telefono debe contener al menos 10 caracteres',
-            'telefono.max' => 'El campo teléfono debe contener maximo 10 caracteres',
-
-            'localidad.required' => 'El campo localidad es obligatorio',
-            'localidad.max' => 'El campo localidad debe contener maximo 30 caracteres',
-
-            'municipio.required' => 'El campo municipio es obligatorio',
-            'municipio.max' => 'El campo municipio debe contener maximo 30 caracteres',
-
-            'especialidad.required' => 'El campo necesidades es obligatorio',
-
-            'acta.required' => 'El documento acta es obligatorio',
-
-            'boletaAnterior.required' => 'El documento boleta es obligatorio',
-
-            'constanciaPrimaria.required' => 'El documento constancia es obligatorio',
-
-            'acta.required' => 'El documento acta es obligatorio',
+            'constanciaPrimaria.required' => 'El campo constancia es obligatorio',
 
             'escuelaProcedencia.required' => 'El campo escuela es obligatorio',
 
-            'cicloescolar_id.required' => 'El campo cicloescolar es obligatorio',
+            'escuelaProcedencia.max' => 'El campo escuela debe contener maximo 30 caracteres',
 
-            'tramite.required' => 'El campo tramite es obligatorio',
-           
+            'escuelaProcedencia.min' => 'El campo escuela debe contener minimo 5 caracteres',
         ]);
-        
-        $alumno = $request->all();
-       
-        if($foto =$request->file('foto')){
-            $rutaGuardarImg = 'foto/';
-            $imagenProducto = date('YmdHis'). "." . $foto->getClientOriginalExtension();
-            $foto->move($rutaGuardarImg, $imagenProducto);
-            $alumno['foto'] = "$imagenProducto";
-            
-        }
 
-        Alumno::create($alumno);    
-        return redirect()->route('grupo.index')->with('Agregar', 'ok');
+        $proceso = new Proceso();
+        $proceso->acta=$request->acta;
+        $proceso->curp=$request->curp;
+        $proceso->copiaVacuna=$request->copiaVacuna;
+        $proceso->copiaIne=$request->copiaIne;
+        $proceso->boletaAnterior=$request->boletaAnterior;
+        $proceso->constanciaPrimaria=$request->constanciaPrimaria;
+        $proceso->escuelaProcedencia=$request->escuelaProcedencia;
+        $proceso->cicloescolar_id=$request->cicloescolar_id;
+        $proceso->tramite_id=$request->tramite_id;
+        $proceso->alumnos_id=$request->alumnos_id;
+        $proceso->grupos_id=$request->grupos_id;
+        $proceso->save();
+        return redirect()->route('inscripcion.index')->with('Agregar', 'ok');
+         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
